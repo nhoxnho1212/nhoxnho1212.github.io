@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>VueJS Demo Lampart Application</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="img/vuelogo.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700"
+    rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+  <link href="lib/prism/prism.css" rel="stylesheet">
+
+
+  <!-- Libraries JS file -->
+  <script src="lib/prism/prism.js"></script>
+
+  <script type = "text/javascript" src = "js/vue.js"></script>
+  <script type = "text/javascript" src = "node_modules/dist/vue-router"></script>
+  <script>
+
+    Prism.plugins.NormalizeWhitespace.setDefaults({
+      'remove-trailing': true,
+      'remove-indent': true,
+      'left-trim': true,
+      'right-trim': true,
+      /*'break-lines': 80,
+      'indent': 2,
+      'remove-initial-line-feed': false,
+      'tabs-to-spaces': 4,
+      'spaces-to-tabs': 4*/
+    });
+  </script>
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- template for the modal component -->
+  <script type="text/x-template" id="modal-template">
+    <transition name="modal">
+      <div class="modal-mask" >
+        <div class="modal-wrapper">
+          <div class="modal-container">
+<!-- 
+            <div class="modal-header">
+              <slot name="header">
+              </slot>
+            </div> -->
+
+            <div class="modal-body row">
+                <slot name="body-template"></slot>
+                <slot name="body-script"></slot>
+                <slot name="body-style" ></slot>
+            </div>
+
+            <div class="modal-footer">
+              <slot name="footer">
+                <button class="btn btn-primary modal-default-button" @click="$emit('close')">
+                  OK
+                </button>
+              </slot>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </script>
+
+  <!-- =======================================================
+    Theme Name: NewBiz
+    Theme URL: https://bootstrapmade.com/newbiz-bootstrap-business-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
+<body class=" scrollbar scrollbar-primary">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+    integrity="sha256-qM7QTJSlvtPSxVRjVWNM2OfTAz/3k5ovHOKmKXuYMO4=" crossorigin="anonymous"></script>
+
+  <!--==========================
+  Header
+  ============================-->
+  <header id="header" class="fixed-top">
+    <div class="container">
+
+      <div class="logo float-left">
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <h1 class="text-light"><a href="#header"><span>NewBiz</span></a></h1> -->
+        <a href="#intro" class="scrollto"><img src="img/LampartDemo.png" alt="" class="img-fluid"></a>
+      </div>
+
+      <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="#intro">Home</a></li>
+          <li><a href="#data">Data and Method</a></li>
+          <li><a href="#v-bind">V-bind</a></li>
+          <li><a href="#computed">Computed and Watcher</a></li>
+
+          <li class="drop-down"><a href="">Other Directive/Transitions & Animation</a>
+            <ul>
+              <li><a href="#V-IF">V-IF, V-ELSE</a></li>
+              <!-- <li class="drop-down"><a href="#">Drop Down 2</a>
+                <ul>
+                  <li><a href="#">Deep Drop Down 1</a></li>
+                  <li><a href="#">Deep Drop Down 2</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li>
+                </ul>
+              </li> -->
+              <li><a href="#">V-FOR</a></li>
+              <li><a href="#">V-TEXT, V-PRE</a></li>
+              <li><a href="#">V-SHOW</a></li>
+              <li><a href="#">V-CLOARK</a></li>
+            </ul>
+          </li>
+          <li class="drop-down"><a href="#componentbasic">Component</a>
+            <ul>
+              <li><a href="#componentbasic">Component Basic</a></li>
+              <li><a href="#componentadvanced">Component Advanced</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </nav><!-- .main-nav -->
+
+    </div>
+  </header><!-- #header -->
+
+  <!--==========================
+    Intro Section
+  ============================-->
+
+  <section id="intro" class="clearfix">
+    <div class="container">
+
+      <div class="intro-img">
+        <img src="img/vuejs.png" alt="" class="img-fluid">
+      </div>
+
+      <div class="intro-info">
+        <h2>Trang web<br><span style="color:#0c4900">Demo</span><br>VueJS!</h2>
+        <div>
+          <a href="#data" class="btn-get-started scrollto">Hãy bắt đầu</a>
+          <a href="#services" class="btn-services scrollto">Góp ý</a>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- #intro -->
+
+  <main id="main">
+    <!--
+      Demo minh hoa VUEJS - Data và Method
+    -->
+    <section id="services" class="section-bg">
+      <div class="container" id="data">
+
+        <header class="section-header">
+          <h3>Ví dụ về Data và Method</h3>
+          <p>Demo ví dụ minh họa Data Method.</p>
+        </header>
+
+        <div class="row">
+
+          <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box" id="app-1">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #018849;"></i></div>
+              <h4 class="title"><a href="#">Ví dụ 1: Data Return</a></h4>
+              <p class="description">{{msg}}</p>
+              <div align='right'>
+                <button class="btn btn-default btn-image" @click="openModal()"
+                  style="background-image: url('img/coding.png');"></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box" id="app-2">
+              <div class="icon"><i class="ion-ios-bookmarks-outline" style="color: #018849;"></i></div>
+              <h4 class="title"><a href="#">Ví dụ 2: Data Computed</a></h4>
+              <form action="">
+                <div class="form-row">
+                  <div class="form-group col-lg-6">
+                    <input v-model="soa" type="number" name="soa" class="form-control" id="name" placeholder="Số a" />
+
+                  </div>
+                  <div class="form-group col-lg-6">
+                    <input v-model="sob" type="number" class="form-control" name="sob" id="email" placeholder="Số b" />
+
+                  </div>
+                  <p class="title" style="font-size:20px"><b>Kết quả a + b: </b>{{tinhtong(soa,sob)}}</p>
+
+                </div>
+              </form>
+              <div align='right'>
+                <button class="btn btn-default btn-image" @click="openModal()"
+                  style="background-image: url('img/coding.png');"></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+            <div class="box" id="app-3">
+              <div class="icon"><i class="ion-ios-paper-outline" style="color: #018849;"></i></div>
+              <h4 class="title"><a href="#">Ví dụ 3: v-on Click</a></h4>
+              <p class="description">
+                <b>Giờ hiện tại:</b>
+                {{time}}
+              </p>
+              <br>
+              <div class="text-center"><button v-on:click="getDate" type="submit" title="Send Message"
+                  class="btn btn-primary">Lấy giờ hiện tại</button></div>
+              <div align='right'>
+                <button class="btn btn-default btn-image" @click="openModal()"
+                  style="background-image: url('img/coding.png');"></button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+            <div class="box" id="app-4">
+              <div class="icon"><i class="ion-ios-speedometer-outline" style="color:#018849;"></i></div>
+              <h4 class="title"><a href="">Ví dụ 4: v-on Click, v-once</a></h4>
+
+              <p class="description">
+                <b>Giờ hiện tại:</b>
+                <span v-once>{{time}}</span>
+              </p>
+              <br>
+              <div class="text-center"><button v-on:click="getDate" type="submit" title="Send Message"
+                  class="btn btn-primary">Lấy giờ hiện tại</button></div>
+              <div align='right'>
+                <button class="btn btn-default btn-image" @click="openModal()"
+                  style="background-image: url('img/coding.png');"></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
+            <div class="box" id="app-5">
+              <div class="icon"><i class="ion-ios-world-outline" style="color: #018849;"></i></div>
+              <h4 class="title"><a href="">Ví dụ 5: Raw HTML, HTML</a></h4>
+              <p class="description">Raw HTML: {{rawHTML}}</p>
+              <p class="description">V-HTML: <span v-html="rawHTML"></span></p>
+              <div align='right'>
+                <button class="btn btn-default btn-image" @click="openModal()"
+                  style="background-image: url('img/coding.png');"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      </div>
+    </section><!-- #services -->
+
+    <!--==========================
+      About Us Section
+    ============================-->
+
+    <section id="about">
+      <div class="container" id="v-bind">
+
+        <header class="section-header">
+          <h3 style="color:#018849">V-BIND</h3>
+          <p>Trong VueJS thường sử dụng những directive hay còn gọi là các thành phần trong VueJS những thành phần này
+            bắt đầu bằng v-</p>
+          <p>Cú pháp mustache không dùng được bên trong các thuộc tính HTML. Thay vào đó, bạn hãy dùng <a
+              href="#">directive v-bind</a>:</p>
+        </header>
+
+        <div class="row about-container">
+
+          <div class="col-lg-6 content order-lg-1 order-2">
+
+            <div class="icon-box wow fadeInUp" id="app-6">
+              <div class="icon"><i class="fa fa-shopping-bag"></i></div>
+              <h4 class="title"><a href="">Kích hoạt button</a></h4>
+              <p class="description">Gia trị của <code>isButtonDisable</code>: <code>{{isButtonDisable}}</code></p>
+              <div class="col-12">
+                <div class="text-center"><button v-on:click="clickfunc" type="submit" title="Send Message"
+                    class="btn btn-primary">Kích hoạt</button>
+                  <button v-bind:disabled="isButtonDisable" type="submit" title="Send Message"
+                    class="btn btn-primary">Click</button>
+                </div>
+
+              </div>
+              <div align='right'>
+                <button class="btn btn-default btn-image" @click="openModal()"
+                  style="background-image: url('img/coding.png');"></button>
+              </div>
+            </div>
+
+            <div class="icon-box wow fadeInUp">
+              <div class="icon"><i class="fa fa-photo"></i></div>
+              <h4 class="title"><a href="">Viết tắt v-bind</a></h4>
+              <p class="description">Ta có thể viết <code>:disabled</code> thay vì <code>v-bind:disabled</code></p>
+
+
+            </div>
+
+            <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
+              <div class="icon"><i class="fa fa-photo"></i></div>
+              <h4 class="title"><a href="">Một số v-bind thông dụng</a></h4>
+              <p class="description">
+                Thuộc tính <code>v-bind:href</code> cho phép ta thêm đường dẫn URL</p>
+              </p>
+              <p class="description">
+                Thuộc tính <code>v-bind:style</code> Cho phép ta định dạng style bằng VueJS</p>
+              </p>
+              <p class="description">
+                Thuộc tính <code>v-bind:id</code> cho phép sử dụng thuộc tính id trong VueJS</p>
+              </p>
+
+              <p class="description">
+                Tác dụng của việc sử dụng của những thẻ này cho phép ta sử dụng thuộc tính dynamic <b>(thuộc tính
+                  động)</b>
+              </p>
+            </div>
+
+          </div>
+
+          <div class="col-lg-6 background order-lg-2 order-1 wow fadeInUp">
+            <img src="img/VUE-V-Bind.png" class="img-fluid" alt="">
+          </div>
+        </div>
+
+        <header class="section-header" id="computed">
+          <h3 style="color:#018849">Computed property và watcher</h3>
+          <p><b>Computed</b>Được sinh ra sau thực hiện một hàm. Thường thì viết trực tiếp trong template bằng cách gọi
+            trực tiếp trong cặp dấu <code>{{}}</code>, Computed không có tham số truyền vào</p>
+
+        </header>
+
+        <div class="row about-extra" id="app-7">
+          <div class="col-lg-6 wow fadeInUp">
+            <img src="img/isometric_heart_b.png" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 wow fadeInUp pt-5 pt-lg-0">
+            <h4>BÀI TOÁN CON GIÁP - (COMPUTED) </h4>
+            <h5> TÍNH CAN CHI TỪ MỘT NĂM NHẬP TỪ BÀN PHÍM</h5>
+            <p>
+              Con người sinh ra thuộc 12 con giáp: Tý, Sửu, Dần, Mẹo, Thìn, Tị, Ngọ, Mùi, Thân, Dậu, Tuất, Hợi
+            </p>
+            <p>
+              Đồng thời chúng ta còn 10 thiên can như sau: Canh, Tân, Nhâm, Quý, Giáp, Ất, Bính, Đinh, Mậu và Kỷ
+            </p>
+            <p>
+              Bài toán nhập vào một năm đưa ra năm đó là nằm gì. Ví dụ như năm 2020 là năm <b>Canh Tý</b>
+            </p>
+            <div class="form-group col-lg-6">
+              <input v-model="nam" type="number" name="nam" class="form-control" id="name"
+                placeholder="Nhập vào một năm" />
+            </div>
+            <br>
+            <h4>Năm vừa nhập là năm: {{tinhcan}} </h4>
+          </div>
+        </div>
+
+        <div class="row about-extra">
+          <div class="col-lg-6 wow fadeInUp order-1 order-lg-2">
+            <img src="img/vue_contact.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-6 wow fadeInUp pt-4 pt-lg-0 order-2 order-lg-1">
+            <h4>So sánh Computed và Methods</h4>
+            <div>
+              <table class="table table-nhut table-bordered">
+                <thead>
+                  <tr>
+                    <th>Computed</th>
+                    <th>Methods</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <p>- <b>KHÔNG</b> có tham số đầu vào. Gọi trong temple chỉ cần ghi <code>{{"tencomputed"}}</code>
+                      </p>
+                      <p>- Khi nào có sự thay đổi của data thì <code>computed</code> mới chạy lại</p>
+                      <h4>Ví dụ</h4>
+                      <pre>
+                        <code class="language-js">
+computed:{
+  tinhTong:function(){
+  return 1+2;
+}</code>
+
+<code class="language-html">{{ tinhTong + 2 }}</code>
+                          </pre>
+                      Khi gọi tinhTong+2 thì computed đã được tính lúc trước là kết quả là 3 rồi nên không cần tính lại
+                      kết quả ra 4
+                      </p>
+                    </td>
+                    <td>
+                      <p>- <b>CÓ</b> có tham số đầu vào. Gọi trong temple phải có dấu
+                        ()<code>{{"tenmethods(params)"}}</code></p>
+                      <p>- Sử dụng <code>methods</code>phải chạy lại từ đầu đến cuối</p>
+                      <h4>Ví dụ</h4>
+                      <pre>
+                            <code class="language-js">
+methods:{
+  tinhTong2:function(){
+  return 1+2;
+}</code>
+
+<code class="language-html">{{ tinhTong2() + 2 }}</code>
+                          </pre>
+                      Khi gọi tinhTong2()+2 thì methods sẽ thực hiện hàm tính tổng trước để ra kết quả là 2 sau đó + 2
+                      tiếp tục kết quả ra là 4
+                      </p>
+                    </td>
+
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row about-extra" id="app-8">
+          <div class="col-lg-6 wow fadeInUp">
+            <img src="img/WATCHER.png" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 wow fadeInUp pt-5 pt-lg-0">
+            <h4>ỨNG DỤNG ĐẶT CÂU HỎI VÀ TRẢ LỜI YES/NO - (WATHCER) </h4>
+            <h5> Đặt câu hỏi có dấu "?" sao đó API sẽ trả về kết quả YES/NO</h5>
+            <p>
+              Câu hỏi phải đặt phải có dấu "?""
+            </p>
+            <p>
+              API trả về kết quả YES/NO
+            </p>
+            <p>
+              Tôi là Laravel? <b>NO</b>
+            </p>
+            <div class="form-group col-lg-12">
+              <input v-model="question" type="text" name="question" class="form-control" id="name"
+                placeholder="Hỏi một câu hỏi" />
+            </div>
+            <br>
+            <h4>Câu trả lời: {{answer}}</h4>
+          </div>
+        </div>
+
+        <div class="row about-extra">
+          <div class="col-lg-6 wow fadeInUp order-1 order-lg-2">
+            <img src="img/computedwatcher.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-6 wow fadeInUp pt-4 pt-lg-0 order-2 order-lg-1">
+            <h4>So sánh Computed và Watcher</h4>
+            <div>
+              <table class="table table-nhut table-bordered">
+                <thead>
+                  <tr>
+                    <th>Computed</th>
+                    <th>Watcher</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <p>Muốn giảm tên một thuộc tính phức tạp, lồng nhau thành 1 tên dễ đọc và dễ sử dụng
+                        Được cập nhật khi thuộc tính dữ liệu ban đầu bị thay đổi
+                        Thuộc tính dữ liệu đạt đến 1 giá trị cụ thể, sau đó được sử dụng vào một việc cụ thể
+                        🡪Cần tham chiếu 1 giá trị từ template
+                      </p>
+                    </td>
+                    <td>
+                      <p>
+                        Tạo dữ liệu mới từ dữ liệu hiện có Sắp xếp hoặc thao tác 1 nhóm dữ liệu lớn 🡪Sử dụng các giá
+                        trị trực tiếp trong template
+                      </p>
+
+                    </td>
+
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- #about -->
+
+    <!--==========================
+      About Us Section
+    ============================-->
+
+    <section id="V-IF">
+      <div class="container">
+
+        <header class="section-header" id="computed">
+          <h3 style="color:#018849">Other Directive</h3>
+        </header>
+
+        <div class="row about-container" id="app-9">
+
+          <div class="col-lg-6 content order-lg-1 order-2">
+            <p>
+              Phần này trình bày một số directive thông dụng, thường sử dụng nhất.
+            </p>
+
+            <div>
+              <h5><b style="color:#598f2d">#</b> V-IF, V-ELSE</h5>
+              <p>Dùng để kiểm tra điều kiện của một câu lệnh </p>
+            </div>
+            <br>
+            <div class="wow fadeInUp pt-5 pt-lg-0">
+              <h4><b>TRÒ CHƠI TÀI XỈU - (V-IF, V-ELSE)</b> </h4>
+              <h5> TRÒ CHƠI THỬ THÁCH VẬN MAY BẰNG GAME TÀI XỈU</h5>
+              <p>
+                <b>Luật chơi:</b> Bạn có 5000 đồng. Nếu số tiền của bạn đạt 20000 đồng bạn thắng, số tiền của bạn bằng 0
+                bạn thua.
+                <b>CHẴN: [2,4,6], LẺ: [1,3,5]</b>
+              </p>
+              <p>
+                Bạn có thể đặt cược số tiền <b>Bé hơn hoặc bằng</b> số tiền bạn đang có.
+              </p>
+              <p>
+                Nếu bạn đặt đúng tài hoặc xỉu thì tỉ lệ trả thưởng là 1:1 Ví dụ: Đặt 5000 đồng <b>ĐƯỢC</b> 5000 đồng.
+              </p>
+              <p>Số tiền của bạn:
+                <span v-if="tienhientai==0">
+                  <b style="color:red">{{tienhientai}}</b>
+                </span>
+                <span v-else>
+                  <b style="color:blue">{{tienhientai}}</b>
+                </span>
+                đồng <img :src="hinh" style="width: 20%; margin-left: 100px;" /></p>
+
+              <div class="form-group col-lg-6 form-check-inline">
+                <input v-model="tiencuoc" type="number" name="tiencuoc" class="form-control"
+                  placeholder="Nhập vào số tiền cược" />
+                <!-- Material inline 1 -->
+              </div>
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample"
+                  value="0" v-model="choose">
+                <label class="form-check-label" for="materialInline1">CHẴN</label>
+              </div>
+              <!-- Material inline 2 -->
+              <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample"
+                  value="1" v-model="choose">
+                <label class="form-check-label" for="materialInline2">LẺ</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <button v-on:click="lac" :disabled="isdisable" type="submit" title="Send Message"
+                  class="btn btn-primary">LẮC</button>
+              </div>
+              <br>
+              <h4>KẾT QUẢ:{{ketqua}}<span v-html="thongbao"> </h4>
+            </div>
+
+            <!-- <br>
+            <div>    
+              <h5><b style="color:#598f2d">#</b> V-FOR</h5>
+              <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+            </div>
+            <br>
+            <div>    
+              <h5><b style="color:#598f2d">#</b> V-TEXT, V-PRE</h5>
+              <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+            </div>
+            <br>
+            <div>    
+              <h5><b style="color:#598f2d">#</b> V-SHOW</h5>
+              <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+            </div>
+            <br>
+            <div>    
+              <h5><b style="color:#598f2d">#</b> V-CLOARK</h5>
+              <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+            </div>-->
+          </div>
+
+          <div class="col-lg-6 background order-lg-2 order-1 wow fadeInUp">
+            <img src="img/TaiXiu.png" class="img-fluid" alt="">
+          </div>
+        </div>
+
+        <div class="row about-extra">
+          <div class="col-lg-6 wow fadeInUp">
+            <img src="img/v-for.png" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 wow fadeInUp pt-5 pt-lg-0">
+            <div>
+              <h5><b style="color:#598f2d">#</b> V-FOR</h5>
+              <p>Dùng để render danh sách, một số tài tiếng anh gọi là map danh sách.</p>
+              <p><code>v-for</code> mapping danh sách dựa trên một mảng</p>
+              <p>Cú pháp duyệt mảng <code>v-for</code> như sau <code>item in items</code></p>
+            </div>
+            <div class="row about-container" id="app-10">
+
+              <div class="wow fadeInUp pt-5 pt-lg-0">
+                <h4><b>NHỮNG CÔNG VIỆC CẦN LÀM HÔM NAY <br> (V-FOR và V-FOR componet)</b> </h4>
+                <h5> SẮP XẾP CÔNG VIỆC CẦN LÀM CHO NGÀY HÔM NAY</h5>
+                <div id="todo-list-example">
+                  <div class="form-group col-lg-6 form-check-inline">
+                    <input class="form-control" v-model="newTodoText" v-on:keyup.enter="addNewTodo"
+                      placeholder="Thêm công việc cần làm trong ngày hôm nay">
+                  </div>
+                  <ul>
+                    <li is="todo-item" v-for="(todo, index) in todos" v-bind:key="todo.id" v-bind:title="todo.title"
+                      v-on:remove="todos.splice(index, 1)"></li>
+                  </ul>
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+
+          <div class="row about-extra">
+            <div class="col-lg-6 wow fadeInUp order-1 order-lg-2">
+              <img src="img/v-content.png" class="img-fluid" alt="">
+            </div>
+
+            <div class="col-lg-6 wow fadeInUp pt-4 pt-lg-0 order-2 order-lg-1">
+              <div>
+                <h5><b style="color:#598f2d">#</b> V-TEXT</h5>
+                <p>Có hai cách để lấy data dạng <code>string</code> cách 1 dùng trực tiếp <br> <code
+                    class="language-html"><span class="nt">&lt;p&gt; {{msg}} &lt;/p&gt;</span></code></p>
+                <p>Cách thứ 2: gán msg vào trong v-text <br> <code
+                    class="language-html"><span class="nt">&lt;p v-text="msg"&gt;&lt;/p&gt;</span></code></p>
+              </div>
+
+              <div>
+                <h5><b style="color:#598f2d">#</b> V-PRE</h5>
+                <p>Directive <code>V-PRE</code> Cho phép ta ngừng thực thi code js. Lấy ví dụ chúng ta có msg:abc. Giả
+                  sử thường ta sử dụng sẽ xuất ra <b>abc</b>. Nhưng trường hợp sử dụng
+                  <code>&lt;p&gt;{{msg}}&lt;/p&gt;</code> kết quả sẽ trả về <code>{{msg}}</code></b></p>
+              </div>
+
+              <div>
+                <h5><b style="color:#598f2d">#</b> V-SHOW</h5>
+                <p><code>v-show</code> cách dùng tương tự như <code>v-if</code> tuy nhiên v-if luôn luôn được render và
+                  chứa trong DOM; v-show chỉ bật tắt thuộc tính display của phần tử này.</p>
+                <p><code>v-show</code> không hỗ trợ thẻ <code>&lt;template&gt;</code> và không hỗ trợ
+                  <code>v-else</code></p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+    </section><!-- #about -->
+
+    <!--==========================f
+      Services Section
+    ============================-->
+    <section id="services" class="section-bg">
+      <div class="container" id="componentbasic">
+
+        <header class="section-header">
+          <h3>COMPONENT BASIC</h3>
+          <p>Component là thành phần của khá <b>quan trọng</b> trong VueJS, nó cho phép ta tạo ra một thẻ
+            <code>&lt;tag&gt;</code> mới của chính mình</p>
+        </header>
+
+        <div class="row" id="app-11">
+
+          <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">Ví dụ 1. Tạo một button mang tên </a> </h4>
+              <p class="description"><code>'lp-button'</code></p>
+              <p class="description" style="text-align: justify;">Tạo một button có background mã màu ngẫu nhiên khi
+                click. Nếu màu sáng thì chữ màu đen, nếu màu tối thì chữ màu trắng</p>
+              <p class="description"><a href="https://awik.io/determine-color-bright-dark-using-javascript/"><b>Giải
+                    thuật xác định màu sáng tối</b></a></p>
+              <div>
+                <lp-button></lp-button>
+              </div>
+              <div align='right'>
+                <button class="btn btn-default btn-image" @click="openModal()"
+                  style="background-image: url('img/coding.png');"></button>
+              </div>
+
+            </div>
+          </div>
+
+
+          <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">Ví dụ 2. Tái sử dụng Component</a> </h4>
+              <p class="description"><code>'lp-button'</code></p>
+              <p class="description" style="text-align: justify;">Tái sử dụng component <code>lp-button</code> đã tạo ở
+                ví dụ 1</p>
+              <p class="description"><a href="https://awik.io/determine-color-bright-dark-using-javascript/"><b>Giải
+                    thuật xác định màu sáng tối</b></a></p>
+              <div class="form-check-inline">
+                <lp-button></lp-button>
+                <lp-button></lp-button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">Lưu ý: Component có data phải là một function</a> </h4>
+              <div class="portfolio-wrap description">
+                <img src="img/Luuy.png" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <div>
+                    <a href="img/Luuy.png" class="link-preview" data-lightbox="portfolio" data-title="Web 1"
+                      title="Preview"><i class="ion ion-eye"></i></a>
+                    <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <lp-button></lp-button>
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">THÀNH PHẦN TRONG VUEJS</a> </h4>
+              <p class="description" style="text-align: justify;"> Một ứng dụng thường tổ chức dưới dạng cây lồng nhau
+                thường có cấu trúc như sau:</p>
+              <div class="portfolio-wrap description">
+                <img src="img/components.png" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <div>
+                    <a href="img/components.png" class="link-preview" data-lightbox="portfolio" data-title="Web 1"
+                      title="Preview"><i class="ion ion-eye"></i></a>
+                    <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                  </div>
+                </div>
+              </div>
+              <p class="description"> <b>Ví dụ:</b> Trong khu vực chứa các bài blog có danh sách các bài blog là
+                component con -> trong mỗi blog con lại có các component con khác như là hình ảnh, tiêu đề, button,....
+              </p>
+              <div class="form-check-inline">
+                <lp-button></lp-button>
+                <lp-button></lp-button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="app-12">
+
+          <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">Ví dụ 3. Truyền dữ liệu bằng thuộc tính Props</a> </h4>
+              <div class="description">
+                <datablog title="Công ty Lampart"></datablog>
+                <datablog title="Giới thiệu về Vue"></datablog>
+                <datablog title="Giới thiệu về VueJS"></datablog>
+              </div>
+              <div align='right'>
+                <button class="btn btn-default btn-image" @click="openModal(codeHTML_vd3,codeJS_vd3)"
+                  style="background-image: url('img/coding.png');"></button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">Ví dụ 4. Truyền dữ liệu động vào Component</a> </h4>
+              <p class="description"><code>'lp-header'</code></p>
+              <p class="description" style="text-align: justify;">Nhập mã màu và chuỗi kí tự từ bàn phím</p>
+              <div class="form-group col-lg-6 form-check-inline description">
+                <input v-model="mamau" type="text" name="mamau" class="form-control" placeholder="Nhập mã màu" />
+
+                <!-- Material inline 1 -->
+              </div>
+              <div class="form-group col-lg-6 form-check-inline description">
+                <input v-model="text" type="text" name="text" class="form-control" placeholder="Nhập chuỗi" />
+
+                <!-- Material inline 1 -->
+              </div>
+              <p class="description">KẾT QUẢ</p>
+              <div class=" description form-check-inline">
+                <lp-header v-bind:dataheader="text" v-bind:stylemin="styleapp"></lp-header>
+              </div>
+              <div align='right'>
+                <button class="btn btn-default btn-image" @click="openModal(codeHTML_vd4, codeJS_vd4)"
+                  style="background-image: url('img/coding.png');"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="app-13">
+
+          <div class="col-md-6 col-lg-10 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href=""></a>Ví dụ 5: Một phần tử đơn lập trong component</a> </h4>
+              <div class="description">
+                <p>Vì component chỉ chứa một phần tử <code>Root</code> đơn lập nên ta không thể thể hiện một component
+                  như sau </p>
+                <div>
+                  <lp-error></lp-error>
+                  <div align='right'>
+                    <button class="btn btn-default btn-image" @click="openModal(codeHTML_error, codeJS_error)"
+                      style="background-image: url('img/coding.png');"></button>
+                  </div>
+                </div>
+                <div>
+                  <lp-success></lp-success>
+                  <div align='right'>
+                    <button class="btn btn-default btn-image" @click="openModal(codeHTML_success, codeJS_success)"
+                      style="background-image: url('img/coding.png');"></button>
+                  </div>
+                </div>
+                <p><b>Nhận xét</b> Thẻ <codE>&lt;lp-error&gt;</codE> bị lỗi do có 2 <code>Root</code> là
+                  <codE>&lt;h1&gt;</codE> và <codE>&lt;h2&gt;</codE> </p>
+                <p>Thẻ <codE>&lt;lp-success&gt;</codE> không bị lỗi vì chỉ có 1 <code>Root</code> là
+                  <codE>&lt;div&gt;</codE> chứa 2 tag <codE>&lt;h1&gt;</codE> và <codE>&lt;h2&gt;</codE> </p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row" id="app-14">
+
+          <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">Ví dụ 6. Gửi thông tin đến đối tượng cha bằng sự kiện</a> </h4>
+              <div class="description">
+                <div :style="{ fontSize: postFontSize + 'em' }">
+                  <p>Hello</p>
+                  <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:post="post"
+                    v-on:enlarge-text="postFontSize += 0.1"></blog-post>
+
+                </div>
+              </div>
+              <div align='right'>
+                <button class="btn btn-default btn-image" @click="openModal(codeHTML_vd6, codeJS_vd6)"
+                  style="background-image: url('img/coding.png');"></button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">Ví dụ 7. Gửi giá trị khi phát hiện sự kiện</a> </h4>
+              <div class="description">
+                <div :style="{ fontSize: postFontSize2 + 'em' }">
+                  <p>Hello</p>
+                  <blog-posts v-for="post in posts" v-bind:key="post.id" v-bind:post="post"
+                    v-on:enlarge-text="postFontSize2 += $event"></blog-posts>
+
+                </div>
+              </div>
+              <div align='right'>
+                <button class="btn btn-default btn-image" @click="openModal(codeHTML_vd7, codeJS_vd7)"
+                  style="background-image: url('img/coding.png');"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="app-15">
+
+          <div class="col-md-6 col-lg-10 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href=""></a>Ví dụ 8. <code>v-model</code> trong component</a> </h4>
+              <div class="description">
+                <p> Sử dụng v-model trong component. Giả sử ta sử dụng <code>&lt;input v-model="searchText"&gt;</code>
+                  thì chúng ta sử dụng bình thường, tuy nhiên việc này đối với <code>component</code> cần phải được
+                  custom gửi đến đối tượng cha thì chúng ta mới được thay đổi</p>
+                <p>{{msg}}</p>
+
+                <p>Thẻ input bình thường</p>
+
+                <div class="form-group col-lg-6 form-check-inline">
+                  <input class="form-control" v-model="msg">
+                </div>
+                <div align='right'>
+                  <button class="btn btn-default btn-image" @click="openModal(codeHTML_1, codeJS_1)"
+                    style="background-image: url('img/coding.png');"></button>
+                </div>
+                <p>Cách 2 của thẻ input</p>
+                <div class="form-group col-lg-6 form-check-inline">
+                  <input class="form-control" v-bind:value="msg" v-on:input="msg=$event.target.value">
+                </div>
+                <div align='right'>
+                  <button class="btn btn-default btn-image" @click="openModal(codeHTML_2, codeJS_2)"
+                    style="background-image: url('img/coding.png');"></button>
+                </div>
+                <p>Thẻ input dùng component</p>
+                <div class="form-group col-lg-6 form-check-inline">
+                  <custom-input v-model="msg"></custom-input>
+                </div>
+                <div align='right'>
+                  <button class="btn btn-default btn-image" @click="openModal(codeHTML_3, codeJS_3)"
+                    style="background-image: url('img/coding.png');"></button>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div id="app-16" class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">Ví dụ 9. Phân phối nội dung với </a> <code>&lt;slot&gt;</code> </h4>
+              <div class="container">
+                <div class="description">
+                  <alert-box>
+                    Hello World
+                  </alert-box>
+                </div>
+                <div align='right'>
+                  <button class="btn btn-default btn-image" @click="openModal(codeHTML_1, codeJS_1)"
+                    style="background-image: url('img/coding.png');"></button>
+                </div>
+              </div>
+              <div class="container" style="margin-top: 1rem;">
+                <div class="description">
+                  <p>Trong trường hợp có nhiều <code>slot</code>, ta sẽ dùng <code>name</code> đề xác định vị trí bổ
+                    xung.</p>
+                  <alert-box-name>
+                    <div slot="success">
+                      <p>This is success alert</p>
+                    </div>
+                    <div slot="danger">
+                      <p>This is danger alert</p>
+                    </div>
+                  </alert-box-name>
+                </div>
+                <div align='right'>
+                  <button class="btn btn-default btn-image" @click="openModal(codeHTML_2, codeJS_2)"
+                    style="background-image: url('img/coding.png');"></button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Slot: Render Scope -->
+
+          <div id="app-slot-render_scope" class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">Ví dụ 10. Phạm vi truy xuất trong </a> <code>&lt;slot&gt;</code> </h4>
+              <div class="description">
+                <p>Có thể truy xuất dữ liệu trong component chứa slot bằng cách khai báo <code>v-bind</code> trong
+                  component cha và dùng <code>v-slot</code> khi muốn sử dụng</p>
+                <get-com v-slot="{com}">
+                  {{com.name}}
+                </get-com>
+              </div>
+              <div align='right'>
+                <button class="btn btn-default btn-image" @click="openModal()"
+                  style="background-image: url('img/coding.png');"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+      <!-- Mixin -->
+      <div class="row">
+        <div class="col-md-6 col-lg-10 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+          <div class="box">
+            <h4 class="title"><a href=""></a>Ví dụ 11. Mixins</h4>
+            <div class="description">
+              <p>Để có thể thêm Data và Methods từ bên ngoài ta sử dụng <code>mixins</code></p>
+              <div id="app-mixins-1">
+                <h2> {{ msg }} </h1>
+                <div align='right'>
+                  <button class="btn btn-default btn-image" @click="openModal()" 
+                    style="background-image: url('img/coding.png');"
+                  ></button>
+                </div>
+                <br>
+              </div>
+              <p>Với những tuỳ chọn trùng nhau, những tuỳ chọn này sẽ được <b>merge</b> và <b>ưu tiên những tuỳ chọn trong component</b></p>
+              <div id="app-mixins-2">
+                <div style="width: 50%;">                  
+                  <pre class="line-numbers" style="white-space:pre-wrap;">
+                    <code 
+                      class="language-js" 	
+                    > 
+{{ dt }}
+                    </code>
+                  </pre>
+                  </div>
+                  <div align='right'>
+                    <button class="btn btn-default btn-image" @click="openModal()"
+                      style="background-image: url('img/coding.png');"></button>
+                  </div>
+                </div>
+                <br>
+              </div>
+              <p>Những hàm hook có tên trùng sẽ được merge vào trong <b>một mảng</b> để tất cả đều được gọi. Những hook trong mixin sẽ được gọi trước những hook trong component.</p>
+              <div id="app-mixins-3">
+                <div style="width: 50%;">                  
+                  <pre class="line-numbers" style="white-space:pre-wrap;">
+                    <code 
+                      class="language-js" 	
+                    > 
+"This is created() method in mixin !"
+"This is created() method in component !"
+                    </code>
+                  </pre>            
+                </div>
+                <div align='right'>
+                  <button class="btn btn-default btn-image" @click="openModal()" 
+                    style="background-image: url('img/coding.png');"
+                  ></button>
+                </div>
+                <br>
+              </div>
+              <div>
+                <table class="table table-nhut table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Local Mixins</th>
+                      <th>Global Mixins</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>
+                          Nó bao gồm thành phần mà nó được khai báo và đăng ký. 
+                          Quyền hạn của mixin cục bộ bị ràng buộc bởi thành phần mà nó được khai báo.
+                        </p>
+                        <pre class="line-numbers" style="white-space:pre-wrap;">
+                            <code 
+                              class="language-js" 	
+                            > 
+var mixin_cus = {
+    created: function () {
+        console.log('Hello !')
+    }
+}
+
+new Vue({
+    mixins: [mixin_cus],
+})
+                            </code>
+                        </pre>
+                      </td>
+                      <td>
+                        <p>
+                          Nó ảnh hưởng đến tất cả đối tượng Vue được khởi tạo, kể cả những component của bên thứ ba.
+                        </p>
+                        <pre class="line-numbers" style="white-space:pre-wrap;">
+                            <code 
+                              class="language-js" 	
+                            > 
+Vue.mixin({
+  created: function () {
+    var myOption = this.$options.myOption
+    if (myOption) {
+      console.log(myOption)
+    }
+  }
+})
+
+new Vue({
+  myOption: 'hello!'
+})
+// => "hello!"
+                          </code>
+                        </pre>   
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- #services -->
+
+    <!--==========================
+      Why Us Section
+    ============================-->
+    <!-- <section id="why-us" class="wow fadeIn">
+      <div class="container">
+        <header class="section-header">
+          <h3>Why choose us?</h3>
+          <p>Laudem latine persequeris id sed, ex fabulas delectus quo. No vel partiendo abhorreant vituperatoribus.</p>
+        </header>
+
+        <div class="row row-eq-height justify-content-center">
+
+          <div class="col-lg-4 mb-4">
+            <div class="card wow bounceInUp">
+                <i class="fa fa-diamond"></i>
+              <div class="card-body">
+                <h5 class="card-title">Corporis dolorem</h5>
+                <p class="card-text">Deleniti optio et nisi dolorem debitis. Aliquam nobis est temporibus sunt ab inventore officiis aut voluptatibus.</p>
+                <a href="#" class="readmore">Read more </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mb-4">
+            <div class="card wow bounceInUp">
+                <i class="fa fa-language"></i>
+              <div class="card-body">
+                <h5 class="card-title">Voluptates dolores</h5>
+                <p class="card-text">Voluptates nihil et quis omnis et eaque omnis sint aut. Ducimus dolorum aspernatur.</p>
+                <a href="#" class="readmore">Read more </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mb-4">
+            <div class="card wow bounceInUp">
+                <i class="fa fa-object-group"></i>
+              <div class="card-body">
+                <h5 class="card-title">Eum ut aspernatur</h5>
+                <p class="card-text">Autem quod nesciunt eos ea aut amet laboriosam ab. Eos quis porro in non nemo ex. </p>
+                <a href="#" class="readmore">Read more </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row counters">
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-toggle="counter-up">274</span>
+            <p>Clients</p>
+          </div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-toggle="counter-up">421</span>
+            <p>Projects</p>
+          </div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-toggle="counter-up">1,364</span>
+            <p>Hours Of Support</p>
+          </div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-toggle="counter-up">18</span>
+            <p>Hard Workers</p>
+          </div>
+  
+        </div>
+
+      </div>
+    </section> -->
+
+    <!--==========================
+      Portfolio Section
+    ============================-->
+    <!-- <section id="portfolio" class="clearfix">
+      <div class="container">
+
+        <header class="section-header">
+          <h3 class="section-title">Our Portfolio</h3>
+        </header>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-app">App</li>
+              <li data-filter=".filter-card">Card</li>
+              <li data-filter=".filter-web">Web</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row portfolio-container">
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src="img/portfolio/app1.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a href="#">App 1</a></h4>
+                <p>App</p>
+                <div>
+                  <a href="img/portfolio/app1.jpg" data-lightbox="portfolio" data-title="App 1" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
+                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-wow-delay="0.1s">
+            <div class="portfolio-wrap">
+              <img src="img/portfolio/web3.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a href="#">Web 3</a></h4>
+                <p>Web</p>
+                <div>
+                  <a href="img/portfolio/web3.jpg" class="link-preview" data-lightbox="portfolio" data-title="Web 3" title="Preview"><i class="ion ion-eye"></i></a>
+                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app" data-wow-delay="0.2s">
+            <div class="portfolio-wrap">
+              <img src="img/portfolio/app2.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a href="#">App 2</a></h4>
+                <p>App</p>
+                <div>
+                  <a href="img/portfolio/app2.jpg" class="link-preview" data-lightbox="portfolio" data-title="App 2" title="Preview"><i class="ion ion-eye"></i></a>
+                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-wrap">
+              <img src="img/portfolio/card2.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a href="#">Card 2</a></h4>
+                <p>Card</p>
+                <div>
+                  <a href="img/portfolio/card2.jpg" class="link-preview" data-lightbox="portfolio" data-title="Card 2" title="Preview"><i class="ion ion-eye"></i></a>
+                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-wow-delay="0.1s">
+            <div class="portfolio-wrap">
+              <img src="img/portfolio/web2.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a href="#">Web 2</a></h4>
+                <p>Web</p>
+                <div>
+                  <a href="img/portfolio/web2.jpg" class="link-preview" data-lightbox="portfolio" data-title="Web 2" title="Preview"><i class="ion ion-eye"></i></a>
+                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app" data-wow-delay="0.2s">
+            <div class="portfolio-wrap">
+              <img src="img/portfolio/app3.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a href="#">App 3</a></h4>
+                <p>App</p>
+                <div>
+                  <a href="img/portfolio/app3.jpg" class="link-preview" data-lightbox="portfolio" data-title="App 3" title="Preview"><i class="ion ion-eye"></i></a>
+                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-wrap">
+              <img src="img/portfolio/card1.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a href="#">Card 1</a></h4>
+                <p>Card</p>
+                <div>
+                  <a href="img/portfolio/card1.jpg" class="link-preview" data-lightbox="portfolio" data-title="Card 1" title="Preview"><i class="ion ion-eye"></i></a>
+                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card" data-wow-delay="0.1s">
+            <div class="portfolio-wrap">
+              <img src="img/portfolio/card3.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a href="#">Card 3</a></h4>
+                <p>Card</p>
+                <div>
+                  <a href="img/portfolio/card3.jpg" class="link-preview" data-lightbox="portfolio" data-title="Card 3" title="Preview"><i class="ion ion-eye"></i></a>
+                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-wow-delay="0.2s">
+            <div class="portfolio-wrap">
+              <img src="img/portfolio/web1.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4><a href="#">Web 1</a></h4>
+                <p>Web</p>
+                <div>
+                  <a href="img/portfolio/web1.jpg" class="link-preview" data-lightbox="portfolio" data-title="Web 1" title="Preview"><i class="ion ion-eye"></i></a>
+                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>#portfolio -->
+
+    <!--==========================
+      Clients Section
+    ============================-->
+    <!-- <section id="testimonials" class="section-bg">
+      <div class="container">
+
+        <header class="section-header">
+          <h3>Testimonials</h3>
+        </header>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+
+            <div class="owl-carousel testimonials-carousel wow fadeInUp">
+    
+              <div class="testimonial-item">
+                <img src="img/testimonial-1.jpg" class="testimonial-img" alt="">
+                <h3>Saul Goodman</h3>
+                <h4>Ceo &amp; Founder</h4>
+                <p>
+                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                </p>
+              </div>
+    
+              <div class="testimonial-item">
+                <img src="img/testimonial-2.jpg" class="testimonial-img" alt="">
+                <h3>Sara Wilsson</h3>
+                <h4>Designer</h4>
+                <p>
+                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                </p>
+              </div>
+    
+              <div class="testimonial-item">
+                <img src="img/testimonial-3.jpg" class="testimonial-img" alt="">
+                <h3>Jena Karlis</h3>
+                <h4>Store Owner</h4>
+                <p>
+                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+                </p>
+              </div>
+    
+              <div class="testimonial-item">
+                <img src="img/testimonial-4.jpg" class="testimonial-img" alt="">
+                <h3>Matt Brandon</h3>
+                <h4>Freelancer</h4>
+                <p>
+                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                </p>
+              </div>
+    
+              <div class="testimonial-item">
+                <img src="img/testimonial-5.jpg" class="testimonial-img" alt="">
+                <h3>John Larson</h3>
+                <h4>Entrepreneur</h4>
+                <p>
+                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </section>#testimonials -->
+
+    <!--==========================
+      Team Section
+    ============================-->
+    <!-- <section id="team">
+      <div class="container">
+        <div class="section-header">
+          <h3>Team</h3>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 wow fadeInUp">
+            <div class="member">
+              <img src="img/team-1.jpg" class="img-fluid" alt="">
+              <div class="member-info">
+                <div class="member-info-content">
+                  <h4>Walter White</h4>
+                  <span>Chief Executive Officer</span>
+                  <div class="social">
+                    <a href=""><i class="fa fa-twitter"></i></a>
+                    <a href=""><i class="fa fa-facebook"></i></a>
+                    <a href=""><i class="fa fa-google-plus"></i></a>
+                    <a href=""><i class="fa fa-linkedin"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="member">
+              <img src="img/team-2.jpg" class="img-fluid" alt="">
+              <div class="member-info">
+                <div class="member-info-content">
+                  <h4>Sarah Jhonson</h4>
+                  <span>Product Manager</span>
+                  <div class="social">
+                    <a href=""><i class="fa fa-twitter"></i></a>
+                    <a href=""><i class="fa fa-facebook"></i></a>
+                    <a href=""><i class="fa fa-google-plus"></i></a>
+                    <a href=""><i class="fa fa-linkedin"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+            <div class="member">
+              <img src="img/team-3.jpg" class="img-fluid" alt="">
+              <div class="member-info">
+                <div class="member-info-content">
+                  <h4>William Anderson</h4>
+                  <span>CTO</span>
+                  <div class="social">
+                    <a href=""><i class="fa fa-twitter"></i></a>
+                    <a href=""><i class="fa fa-facebook"></i></a>
+                    <a href=""><i class="fa fa-google-plus"></i></a>
+                    <a href=""><i class="fa fa-linkedin"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="member">
+              <img src="img/team-4.jpg" class="img-fluid" alt="">
+              <div class="member-info">
+                <div class="member-info-content">
+                  <h4>Amanda Jepson</h4>
+                  <span>Accountant</span>
+                  <div class="social">
+                    <a href=""><i class="fa fa-twitter"></i></a>
+                    <a href=""><i class="fa fa-facebook"></i></a>
+                    <a href=""><i class="fa fa-google-plus"></i></a>
+                    <a href=""><i class="fa fa-linkedin"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>#team -->
+
+    <!--==========================
+      Clients Section
+    ============================-->
+    <!-- <section id="clients" class="section-bg">
+
+      <div class="container">
+
+        <div class="section-header">
+          <h3>Our CLients</h3>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque dere santome nida.</p>
+        </div>
+
+        <div class="row no-gutters clients-wrap clearfix wow fadeInUp">
+
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="img/clients/client-1.png" class="img-fluid" alt="">
+            </div>
+          </div>
+          
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="img/clients/client-2.png" class="img-fluid" alt="">
+            </div>
+          </div>
+        
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="img/clients/client-3.png" class="img-fluid" alt="">
+            </div>
+          </div>
+          
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="img/clients/client-4.png" class="img-fluid" alt="">
+            </div>
+          </div>
+          
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="img/clients/client-5.png" class="img-fluid" alt="">
+            </div>
+          </div>
+        
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="img/clients/client-6.png" class="img-fluid" alt="">
+            </div>
+          </div>
+          
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="img/clients/client-7.png" class="img-fluid" alt="">
+            </div>
+          </div>
+          
+          <div class="col-lg-3 col-md-4 col-xs-6">
+            <div class="client-logo">
+              <img src="img/clients/client-8.png" class="img-fluid" alt="">
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section> -->
+    <section id="about">
+      <div class="container" id="v-bind">
+
+        <header class="section-header">
+          <h3 style="color:#018849">Enter/Leave & List Transitions</h3>
+        </header>
+
+        <div class="row about-extra">
+          <div class="col-lg-6 wow fadeInUp order-1 order-lg-2">
+            <img src="img/transition.png" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 wow fadeInUp pt-4 pt-lg-0 order-2 order-lg-1">
+            <div>
+              <h5><b style="color:#598f2d"># </b> Overview</h5>
+              <ol class="description">
+                <li>Nó cung cấp đa dạng hiệu ứng giao diện khi thêm, xóa, sửa từ DOM</li>
+                <li>Tự động áp dụng lớp cho CSS transition và CSS animation</li>
+                <li>Tích hợp thư viện bên thứ 3 như <code>Animate.css</code></li>
+                <li>Tích hợp các thư viện hoạt ảnh JavaScript của bên thứ 3, chẳng hạn như <code>Velocity.js</code></li>
+              </ol>
+            </div>
+
+            <div>
+              <h5><b style="color:#598f2d"># </b>Chuyển đổi Component/Element đơn lẻ</h5>
+              <p>VueJS cung cấp một <code>component wrapper</code> cho phép xử lý giao diện trong các trường hợp sau</p>
+
+              <ol>
+                <li>
+                  Render có điều kiện sử dụng <code>v-if</code>
+                </li>
+
+                <li>
+                  Display có điều kiện sử dụng <code>v-show</code>
+                </li>
+
+                <li>
+                  Component động
+                </li>
+
+                <li>
+                  Các nút gốc thành phần components
+                </li>
+              </ol>
+              <p>Ví dụ minh họa</p>
+              <div id="transition-app1">
+                <button v-on:click="show = !show" class="btn btn-primary">
+                  Toggle
+                </button>
+                <transition name="fade">
+                  <p v-if="show">HELLO LAMPART</p>
+                </transition>
+                <div align='right'>
+                  <button class="btn btn-default btn-image" @click="openModal()"
+                    style="background-image: url('img/coding.png');"></button>
+                </div>
+
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+
+        </div>
+        <div class="row about-extra">
+          <div class="col-lg-6 wow fadeInUp">
+            <img src="img/ChuY.png" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 wow fadeInUp pt-5 pt-lg-0">
+            <div>
+              <h5><b style="color:#598f2d">#</b> CHÚ Ý</h5>
+              <p class="description">Khi một phần tử chứa trong component <code>transition</code> được thêm vào hoặc gỡ
+                bỏ khỏi DOM, các bước sau đây sẽ diễn ra:</p>
+
+              <ol>
+                <li>
+                  Vue sẽ tự phát hiện ra nếu phần tử đang nhắc đến có <code>CSS transition</code> hoặc
+                  <code>animation</code> và thêm/bớt các class CSS transition vào đúng thời điểm.
+                </li>
+                <br>
+                <li>
+                  Nếu component cung cấp hook JavaScript, các hook này sẽ được gọi vào đúng thời điểm.
+                </li>
+                <br>
+                <li>
+                  Trong trường hợp không tìm thấy transition hoặc animation nào trong CSS và cũng không có hook
+                  JavaScript nào, việc thêm vào hoặc gỡ bỏ khỏi DOM sẽ được thực thi ngay trong frame tiếp theo
+                </li>
+              </ol>
+
+            </div>
+          </div>
+          <div class="row about-extra">
+            <div class="col-lg-6 wow fadeInUp order-1 order-lg-2">
+              <img src="img/transition-modelclass.png" class="img-fluid" alt="">
+              <p class="description">Mỗi class trên đây sẽ có prefix (tiếp đầu ngữ) là tên của <code>transition</code>.
+                Ở đây prefix <code>v-</code> là mặc định khi bạn dùng một thẻ <code>&lt;transition&gt;</code> không có
+                tên. Nếu chẳng hạn bạn dùng <code>&lt;transition name="my-transition"&gt;</code> thì class
+                <code>v-enter</code> sẽ trở thành <code>my-transition-enter</code>.</p>
+              <p class="description"><code>v-enter-active</code> và <code>v-leave-active</code> cho phép bạn dùng các
+                hàm easing khác nhau cho các enter/leave transition</p>
+              <div>
+                <p class="description" style="color:#018849; font-size: 20px;">Sự khác nhau giữa CSS-Transition và
+                  CSS-Animation</p>
+                <table class="table table-nhut table-bordered">
+                  <thead>
+                    <tr>
+                      <th>CSS-Transition</th>
+                      <th>CSS-Animation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div id="example-1">
+                          <button @click="show = !show" class="btn btn-primary">
+                            Kích hoạt
+                          </button>
+                          <transition name="slide-fade">
+                            <p v-if="show">Xin chào</p>
+                          </transition>
+                          <div align='right'>
+                            <button class="btn btn-default btn-image" @click="openModal(codeHTML, codeJS, codeCSS)"
+                              style="background-image: url('img/coding.png');"></button>
+                          </div>
+                        </div>
+
+                      </td>
+                      <td>
+                        <div id="example-2">
+                          <button @click="show = !show" class="btn btn-primary">Kích hoạt</button>
+                          <transition name="bounce">
+                            <p v-if="show">Cân đẩu vân</p>
+                          </transition>
+                          <div align='right'>
+                            <button class="btn btn-default btn-image" @click="openModal(codeHTML, codeJS, codeCSS)"
+                              style="background-image: url('img/coding.png');"></button>
+                          </div>
+                        </div>
+                      </td>
+
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="col-lg-6 wow fadeInUp pt-4 pt-lg-0 order-2 order-lg-1">
+              <div>
+                <h5><b style="color:#598f2d">#</b> CÁC CLASS TRONG TRANSITION - VÀ MÔ HÌNH THỰC HIỆN</h5>
+                <p class="description">VueJS cung cấp các class trong Transitions gồm những 6 class cho enter/leave
+                  transition</p>
+
+                <ol>
+                  <li>
+                    <code>v-enter</code>: Trạng thái bắt đầu của <code>enter</code>. Được áp dụng trước khi phần tử được
+                    thêm vào DOM và gỡ bỏ đi một frame sau đó.
+                    <br>
+                    <a style="color:blue"
+                      href="https://viblo.asia/p/tao-hieu-ung-dong-so-tang-dan-don-gian-chi-bang-javascript-thuan-phan-2-requestanimationframe-63vKjzbkK2R">Tham
+                      khảo về Frame</a>
+                  </li>
+                  <br>
+                  <li>
+                    <code>v-enter-active</code> Trạng thái active của enter. Được áp dụng trong suốt quá trình enter, từ
+                    ngay sau khi phần tử được thêm vào DOM cho đến khi transition/animation kết thúc. Class này có thể
+                    được dùng để định nghĩa <code>duration</code>, <code>delay</code>, và hàm <code>easing</code> cho
+                    transition enter.
+                  </li>
+                  <br>
+                  <li>
+                    <code>v-enter-to</code>: <b>2.1.8+</b>. Trạng thái kết thúc của enter. Áp dụng một frame sau khi
+                    element được thêm vào DOM (cùng lúc với việc v-enter được gỡ bỏ), gỡ bỏ đi khi transition/animation
+                    kết thúc
+                  </li>
+                  <br>
+                  <li>
+                    <code>v-leave</code>: Trạng thái bắt đầu của <code>leave</code>. Được áp dụng ngay khi một leave
+                    transition được kích hoạt và gỡ bỏ đi một frame sau đó.
+                  </li>
+                  <br>
+                  <li>
+                    <code>v-leave-active</code>: Trạng thái active của <code>leave</code>. Được áp dụng trong suốt quá
+                    trình leave, từ khi transition được kích hoạt cho đến khi transition/animation kết thúc. Class này
+                    có thể được dùng để định nghĩa duration, delay, và hàm easing cho leave transition.
+                  </li>
+                  <br>
+                  <li>
+                    <code>v-leave-to</code>: <b>2.1.8+</b>. Trạng thái kết thúc của leave. Áp dụng một frame sau khi
+                    leave transition được kích hoạt (cùng lúc với việc v-leave được gỡ bỏ), gỡ bỏ đi khi
+                    transition/animation kết thúc.
+                  </li>
+
+                </ol>
+              </div>
+
+
+            </div>
+
+          </div>
+          <div class="col-lg-6 wow fadeInUp">
+            <img src="img/custom.png" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 wow fadeInUp pt-5 pt-lg-0">
+            <div>
+              <h5><b style="color:#598f2d">#</b> SỬ DỤNG CLASS TÙY BIẾN - <b>GIỐNG STYLE TRONG CSS</b></h5>
+              <p class="description">Chúng ta cũng có thể tùy biến transition trong trực tiếp tag transition thay vì
+                định nghĩa trong class qua các thuộc tính sau đây:</p>
+
+              <ul>
+                <li>
+                  <code>
+                    enter-class
+                  </code>
+                </li>
+                <li>
+                  <code>
+                    enter-active-class
+                  </code>
+                </li>
+                <li>
+                  <code>
+                    enter-to-class
+                  </code>
+                  <b>(2.1.8+)</b>
+                </li>
+                <li>
+                  <code>
+                    leave-class
+                  </code>
+                </li>
+                <li>
+                  <code>
+                    leave-active-class
+                  </code>
+                </li>
+                <li>
+                  <code>
+                    leave-to-class
+                  </code>
+                  <b>(2.1.8+)</b>
+                </li>
+              </ul>
+              <br>
+              <p class="description" style="text-align: justify;">
+                Các thuộc tính này sẽ override những tên class theo thông lệ của Vue. Điều này đặc biệt có ích khi bạn
+                muốn kết hợp giữa hệ thống transition của Vue và một thư viện CSS animation có sẵn như Animate.css.
+              </p>
+
+              <p style="color:#018849; font-size:30px;">Ví dụ
+                <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+
+              <div id="example-3">
+                <button @click="show = !show" class="btn btn-primary">
+                  Kích hoạt
+                </button>
+                <transition name="custom-classes-transition" enter-active-class="animated tada"
+                  leave-active-class="animated bounceOutRight">
+                  <p v-if="show">Thú nhún</p>
+                </transition>
+              </div>
+              </p>
+
+            </div>
+          </div>
+
+
+    </section><!-- #about -->
+
+    <section id="services" class="section-bg2">
+      <div class="container" id="componentadvanced">
+
+        <header class="section-header">
+          <h3 style="color:white">COMPONENT ADVANCED</h3>
+          <p style="color:white"> Component Advanced chứa những kiến thức component nâng cao hơn như Routing, Render
+            Function, Virtual Dom, Reactive Interface
+        </header>
+        <div class="row">
+
+          <div class="col-md-6 col-lg-10 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h1 class="title"><a href=""></a>Tất tần tật về Routing</a> </h1>
+              <p class="description">Bản thân VueJS không cung cấp tính năng tự xây dựng <code>route</code> tuy nhiên để
+                làm được việc này chúng ta cần cài đặt thêm một package <code>vue-router</code></p>
+              <br>
+              <p class="description" style="font-size:20px;"><b style="color:#598f2d;">#</b> CÀI ĐẶT BẰNG NPM</h5>
+              <pre class="description giaodien">
+                  <code class="language-html" style="padding:1px !important; font-size:16px; font-family:Arial, Helvetica, sans-serif">npm install vue-router</code> </pre>
+                  <p class="description" style="font-size:20px;"><b style="color:#598f2d;">#</b> Copy đoạn script này vào vị trí chứa script đối với project VueJS</h5>
+                  <pre class="giaodien description">
+                <code class="language-js">import {router} from './router'
+                  /*Phải thêm router vào*/
+                  new Vue({
+                    ...
+                    router,
+                    render: h => h(App)
+                  }).$mount('#app')      
+                </code>
+              </pre>
+              <p class="description" style="font-size:20px;"><b style="color:#598f2d;">#</b> Thêm đoạn code về router trong thư mục <code>router/index.js</code> giống như code minh họa:</h5>
+              <pre class="giaodien description">
+                <code class="language-js">
+                  import Vue from 'vue'
+                  import Router from 'vue-router'
+                  import Overview from '@/components/Overview'
+                  import Feature from '@/components/Feature'
+                  import Theme from '@/components/Theme'
+  
+                  Vue.use(Router)
+  
+                  export const router = new Router({
+                    mode: 'history',
+                    routes: [
+                      {
+                        path: '/overview',
+                        name: 'Overview',
+                        component: Overview
+                      },
+                      {
+                        path:'/feature',
+                        name:'feature',
+                        component: Feature
+                      },
+                      {
+                        path:'/theme',
+                        name:'theme',
+                        component: Theme
+                      },
+                  
+                    ]
+                  })
+                </code>
+              </pre>
+              <p class="description" style="font-size:20px;"><b style="color:#598f2d;">#</b> Sử dụng Router - Định nghĩa Routing trong HTML</h5>
+              <pre class ="giaodien description">
+                <code class="language-html">
+                  &lt;div&gt;
+                  &lt;router-link to="/overview"&gt;&lt;v-btn rounded style="margin:10px; box-shadow: 0px 0px;" color="#fff0"&gt;&lt;span
+                  style="color:white"&gt; Overview - Setting &lt;/span&gt;&lt;/v-btn&gt;&lt;/router-link&gt;
+                  &lt;/div&gt;
+                  &lt;div&gt;
+                  &lt;router-link to="/feature"&gt;&lt;v-btn rounded style="margin:10px; box-shadow: 0px 0px;" color="#fff0"&gt;&lt;span
+                  style="color:white"&gt; Feature &lt;/span&gt;&lt;/v-btn&gt;&lt;/router-link&gt;
+                  &lt;/div&gt;
+                  
+                  &lt;div&gt;
+                  &lt;router-link to="/theme"&gt;&lt;v-btn rounded style="margin:10px; box-shadow: 0px 0px;" color="#fff0"&gt;&lt;span
+                  style="color:white"&gt; Style & animations &lt;/span&gt;&lt;/v-btn&gt;&lt;/router-link&gt;
+                  &lt;/div&gt;
+                  
+                  &lt;div&gt;
+                  &lt;router-link to="/UI"&gt;&lt;v-btn rounded style="margin:10px; box-shadow: 0px 0px;" color="#fff0"&gt;&lt;span
+                  style="color:white"&gt;UI Comoponent &lt;/span&gt;&lt;/v-btn&gt;&lt;/router-link&gt;
+                  &lt;/div&gt;
+                </code>
+              </pre>
+              <p class="description" style="font-size:20px;"><b style="color:#598f2d;">#</b> Thêm Router View sau khi định nghĩa các đường link là nơi chứa các component router</h5>
+              <pre class="giaodien description">
+                <code class="language-html">
+                  &lt;router-view&gt;&lt;/router-view&gt;
+                </code>
+              </pre>
+
+
+                </div>
+          </div>
+
+        </div>
+
+
+   
+        <!-- Render function -->
+        <div class="row">
+
+          <div id="app-render-function-1" class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">Ví dụ 12. Hiển thị tiêu đề có kích thước khác nhau với một component </a> </h4>
+              <div class="description">
+                <script type="text/x-template" id="variable-heading-template">
+                  <h1 v-if="size === 1">
+                    <slot></slot>
+                  </h1>
+                  <h2 v-else-if="size === 2">
+                    <slot></slot>
+                  </h2>
+                  <h3 v-else-if="size === 3">
+                    <slot></slot>
+                  </h3>
+                  <h4 v-else-if="size === 4">
+                    <slot></slot>
+                  </h4>
+                  <h5 v-else-if="size === 5">
+                    <slot></slot>
+                  </h5>
+                  <h6 v-else-if="size === 6">
+                    <slot></slot>
+                  </h6>
+                </script>
+                <variable-heading :size="1">Heading 1</variable-heading>
+                <variable-heading :size="2">Heading 2</variable-heading>
+                <variable-heading :size="3">Heading 3</variable-heading>
+                <variable-heading :size="4">Heading 4</variable-heading>
+              </div>
+              <div align='right'>
+                <button class="btn btn-default btn-image" @click="openModal()"
+                  style="background-image: url('img/coding.png');"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-10 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">Node và Trees</a> </h4>
+              <div class="description">
+                <p>
+                  Code HTML được hiển thị động bằng việc render một cây các đối tượng được gọi là <b>DOM tree</b>.
+                </p>
+                <p> 
+                  Mọi phần tử trên DOM tree là một <b>Node</b>. Mỗi Node là một phần hiển thị trên trình duyệt.
+                </p>
+                <p>Ví dụ đoạn HTML:</p>
+              </div>
+              <pre class="description">
+                <code class="language-html">
+&lt;div>
+  <h1>Bài đồng dao</h1>
+  Năm mới năm me
+&lt;!-- TODO: Hoàn thành bài đồng dao -->
+&lt;/div>
+                </code>
+              </pre>
+              <div class="description">
+                <p>
+                  Cấu trúc cây đoạn HTML trên:
+                </p>
+              </div>
+              <img src="https://vi.vuejs.org/images/dom-tree.png" alt="" srcset="" style="width: 100%; height: 100%;">
+            </div>
+          </div>
+
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6 col-lg-10 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">Virtual DOM</a> </h4>
+              <div class="description">
+                <p>
+                  Vue sẽ tự động giữ cho trang web được cập nhật nhờ vào việc xây dựng một <b>virtual DOM</b> để theo dõi tất cả những thay đổi cần thực hiện đối với DOM thật.
+                </p>
+                <p>
+                  Ta có thể tạo ra một virtual DOM bằng <code>createElement</code>
+                </p>
+                <div id="app-virtual-dom">
+                  <virtual-dom-example></virtual-dom-example>
+                  <div align='right'>
+                    <button class="btn btn-default btn-image" @click="openModal()"
+                      style="background-image: url('img/coding.png');"></button>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-lg-10 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">JFX</a> </h4>
+              <div class="description">
+                <p>Thay vì phải cực nhọc khi dùng nhiều hàm render:</p>
+                <pre>
+                  <code class="language-js">
+createElement(
+  'anchored-heading', {
+    props: {
+      level: 1
+    }
+  }, [
+    createElement('span', 'Hello'),
+    ' world!'
+  ]
+)
+                  </code>
+                </pre>
+                
+                <p>Vue cung cấp một plugin dành cho Babel để dùng JSX với Vue, giúp chúng ta sử dụng một cú pháp gần gũi hơn với template: </p>
+                <pre>
+                  <code class="language-js">
+import AnchoredHeading from './AnchoredHeading.vue'
+
+new Vue({
+  el: '#demo',
+  render: function (h) {
+    return (
+      &lt;AnchoredHeading level={1}>
+        &lt;span>Hello&lt;/span> world!
+      &lt;/AnchoredHeading>
+    )
+  }
+}))
+                  </code>
+                </pre>
+                <p>
+                  Dùng <code>h</code> thay cho <code>createElement</code> là bắt buộc đối với JSX.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-10 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
+              <h4 class="title"><a href="">Reactive Interface</a> </h4>
+              <div class="description">
+                <p>Vue không cho phép thêm hay xoá trực tiếp các thuộc tính: </p>
+                <pre>
+                  <code class="language-js">
+var vm = new Vue({
+  data: {
+    a: 1
+  }
+})
+// `vm.a` is now reactive
+
+vm.b = 2
+// `vm.b` is NOT reactive
+                  </code>
+                </pre>
+                <p>
+                  Để có thể thực hiện điều đó <code>Vue.set</code> và <code>Vue.delete</code> để thêm, sửa đổi hoặc xoá.
+                </p>
+                <div id="app-reactive-interface">
+                  <div class="form-group col-lg-6 form-check-inline">
+                    <input class="form-control" v-model="newStudent" v-on:keyup.enter="addNewTodo"
+                      placeholder="Thêm nhân viên">
+                  </div>
+                  <ul>
+                    <li is="student-item" v-for="(todo, index) in students" v-bind:key="todo.id" v-bind:title="todo.title"
+                      v-on:remove="deleleStudent(index)"></li>
+                  </ul>
+                  <div align='right'>
+                    <button class="btn btn-default btn-image" @click="openModal()"
+                      style="background-image: url('img/coding.png');"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- #services -->
+
+
+    <!--==========================
+      Contact Section
+    ============================-->
+    <section id="contact">
+      <div class="container-fluid">
+
+        <div class="section-header">
+          <h3>LIÊN HỆ VỚI CHÚNG TÔI</h3>
+        </div>
+
+        <div class="row wow fadeInUp">
+
+          <div class="col-lg-6">
+            <div class="map mb-4 mb-lg-0">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2330.4352126398817!2d106.68265731841609!3d10.787611079823394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f2cffd1b101%3A0xea9134ffbab65d03!2zMTE3IEzDvSBDaMOtbmggVGjhuq9uZywgUGjGsOG7nW5nIDcsIFF14bqtbiAzLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1605495395848!5m2!1svi!2s"
+                width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
+                tabindex="0"></iframe>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="row">
+              <div class="col-md-5 info">
+                <i class="ion-ios-location-outline"></i>
+                <p>QMPP+W3 Quận 3, Thành phố Hồ Chí Minh, Việt Nam</p>
+              </div>
+
+              <div class="col-md-4 info">
+                <i class="ion-ios-telephone-outline"></i>
+                <p>(+84 0) 28-3990-3296
+                  (+84 0) 28-3990-3297</p>
+              </div>
+            </div>
+
+            <div class="form">
+              <div id="sendmessage">Your message has been sent. Thank you!</div>
+              <div id="errormessage"></div>
+              <form action="" method="post" role="form" class="contactForm">
+                <div class="form-row">
+                  <div class="form-group col-lg-6">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name"
+                      data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                    <div class="validation"></div>
+                  </div>
+                  <div class="form-group col-lg-6">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
+                      data-rule="email" data-msg="Please enter a valid email" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject"
+                    data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" name="message" rows="5" data-rule="required"
+                    data-msg="Please write something for us" placeholder="Message"></textarea>
+                  <div class="validation"></div>
+                </div>
+                <div class="text-center"><button type="submit" title="Send Message">Send Message</button></div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- #contact -->
+
+  </main>
+  <!-- Begin custom modal -->
+  <div class="component" id="modal-cus">
+    <modal v-if="showModal" @close="closeModal()">
+      <div slot="body-template" v-if="codeHTML" v-bind:class="getClass(codeHTML, codeJS, codeCSS)">
+        <h4><b>HTML</b></h4>
+        <pre class="scrollbar scrollbar-primary">
+          <code class="language-markup" >
+            {{ codeHTML }}
+          </code>
+        </pre>
+      </div>
+      <div slot="body-script" v-if="codeJS" v-bind:class="getClass(codeHTML, codeJS, codeCSS)">
+        <h4><b>JS</b></h4>
+        <pre class="scrollbar scrollbar-primary">
+          <code class="language-js"> 
+            {{ codeJS }}
+          </code>
+        </pre>
+      </div>
+      <div slot="body-style" v-if="codeCSS" v-bind:class="getClass(codeHTML, codeJS, codeCSS)">
+        <h4><b>CSS</b></h4>
+        <pre class="scrollbar scrollbar-primary">
+          <code class="language-js"> 
+            {{ codeCSS }}
+          </code>
+        </pre>
+
+      </div>
+    </modal>
+  </div>
+  <!-- End custom modal -->
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <!-- <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6 footer-info">
+            <h3>VUEJS - DEMO DOCUMENT</h3>
+            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Terms of service</a></li>
+              <li><a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Contact Us</h4>
+            <p>
+              A108 Adam Street <br>
+              New York, NY 535022<br>
+              United States <br>
+              <strong>Phone:</strong> +1 5589 55488 55<br>
+              <strong>Email:</strong> info@example.com<br>
+            </p>
+
+            <div class="social-links">
+              <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+            </div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-newsletter">
+            <h4>Our Newsletter</h4>
+            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna veniam enim veniam illum dolore legam minim quorum culpa amet magna export quem marada parida nodela caramase seza.</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit"  value="Subscribe">
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div> -->
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>Version 1.0.0</strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!--
+          All the links in the footer should remain intact.
+          You can delete the links only if you purchased the pro version.
+          Licensing information: https://bootstrapmade.com/license/
+          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=NewBiz
+        -->
+        Designed by <a href="https://bootstrapmade.com/">Lampart Co.Ltd</a>
+      </div>
+    </div>
+
+  </footer><!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <!-- Uncomment below i you want to use a preloader -->
+  <!-- <div id="preloader"></div> -->
+
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/mobile-nav/mobile-nav.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/waypoints/waypoints.min.js"></script>
+  <script src="lib/counterup/counterup.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="lib/isotope/isotope.pkgd.min.js"></script>
+  <script src="lib/lightbox/js/lightbox.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+    integrity="sha256-qM7QTJSlvtPSxVRjVWNM2OfTAz/3k5ovHOKmKXuYMO4=" crossorigin="anonymous"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+  <script src="js/vue.js"></script>
+
+</body>
+
+</html>
