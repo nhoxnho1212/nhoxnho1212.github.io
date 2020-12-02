@@ -1,5 +1,63 @@
-var app1 = new Vue({
-    el: '#app-1',
+// Modal custom component
+Vue.component('modal', {
+    template: '#modal-template',
+})
+
+window.Event = new Vue();
+
+new Vue({
+    el:"#modal-cus",
+    data: {
+        showModal: false,
+        codeHTML: "",
+        codeJS: "",
+        codeCSS: ""
+    },
+    updated: function() {
+        Prism.highlightAll();
+    },
+    methods: {
+        openModal: function() {
+            this.showModal = true
+        },
+        closeModal: function() {
+            this.showModal = false;
+        },
+        getClass: function(codeHTML, codeJS, codeCSS) {
+            let gridSize = 12;
+            let returnClass = "col-sm-"
+            let numObj = 0;
+
+            if (codeCSS) {
+                numObj ++;
+            }
+            if (codeHTML) {
+                numObj ++;
+            }
+            if (codeJS) {
+                numObj ++;
+            }
+
+            return returnClass + gridSize/numObj;
+        }
+    },
+    mounted() {
+        Event.$on('openModal', (codeHTML, codeJS, codeCSS) => {
+            this.openModal();
+            this.codeHTML = codeHTML;
+            this.codeJS = codeJS;
+            this.codeCSS = codeCSS;
+        })
+    },
+})
+// End Modal
+
+
+// ===== Data va Method ======
+
+// ví dụ 1: Data return
+new Vue({
+    el: '#vd1_DataAndMethod_DataReturn',
     data: {
       msg: "Hello Lampart",
       codeHTML: `
@@ -20,11 +78,12 @@ new Vue({
         }
     }
     
-  });
+});
+// End-Ví dụ 1
 
-
-var app2 = new Vue({
-    el:'#app-2',
+// Ví dụ 2: Data Computed 
+new Vue({
+    el:'#vd2_DataAndMethod_DataComputed',
     data:{
         soa: null,
         sob: null,
@@ -62,12 +121,13 @@ new Vue({
         openModal: function() {
             Event.$emit('openModal', this.codeHTML, this.codeJS)
         }
-        
     }
 })
+// End-Ví dụ 2
 
-var app3 = new Vue({
-    el:'#app-3',
+// Ví dụ 3: v-on Click
+new Vue({
+    el:'#vd3_DataAndMethod_VOnClick',
     data:{
         time:null,
         codeHTML: `
@@ -105,9 +165,11 @@ new Vue({
         }
     }
 })
+// End-Ví dụ 3
 
-var app4 = new Vue({
-    el:'#app-4',
+// Ví dụ 4: v-once
+new Vue({
+    el:'#vd4_DataAndMethod_VOnce',
     data:{
         time:null,
         codeHTML: `
@@ -143,12 +205,13 @@ new Vue({
         openModal: function() {
             Event.$emit('openModal', this.codeHTML, this.codeJS)
         }
-        
     }
 })
+// End-Ví dụ 4
 
-var app5 = new Vue({
-    el:'#app-5',
+// Ví dụ 5: RawHTML
+new Vue({
+    el:'#vd5_DataAndMethod_RawHTML',
     data:{
         rawHTML: "<h1>Hello Lampart</h1>",
         codeJS: `
@@ -177,9 +240,14 @@ new Vue({
     }
 
 })
+// End-Ví dụ 6
 
-var app6 = new Vue({
-    el:'#app-6',
+
+// ===== V-Bind =====
+
+// Ví dụ 6: v-bind:disabled button
+new Vue({
+    el:'#vd6_VBind_DisableButton',
     data:{
         isButtonDisable:true,
         codeJS: `
@@ -225,8 +293,12 @@ new Vue({
     }
 })
 
-var app7 = new Vue({
-    el:'#app-7',
+
+// ===== Computed và Watcher =====
+
+// Ví dụ 7: Bài toán con giáp (computed)
+new Vue({
+    el:'#vd7_ComputedWatcher_BaiToanConGiap',
     data:{
         nam:0,
         can:null,
@@ -285,8 +357,6 @@ var app7 = new Vue({
                         break;
                     }
                 }
-                
-                
               
                 b = parseInt(this.nam)%12;
               
@@ -349,10 +419,11 @@ var app7 = new Vue({
         
     }
 })
+// End-Ví dụ 7
 
-
-var app8 = new Vue({
-  el: '#app-8',
+// Ví dụ 8: Ứng dụng đặt và trả lới yes/no (Watcher) 
+new Vue({
+  el: '#vd8_ComputedWatcher_UngDungYesNo',
   data: {
     question: '',
     answer: 'Không thể trả lời nếu bạn chưa đặt câu hỏi!'
@@ -389,9 +460,14 @@ var app8 = new Vue({
     )
   }
 })
+// End-Ví dụ 8
 
-var app9 = new Vue({
-    el:"#app-9",
+
+// ===== Other Directive =====
+
+// Ví dụ 9: Trỏ chơi tài xỉu (v-if, v-else)
+new Vue({
+    el:"#vd9_OtherDirective_TaiXiu",
     data:{
         tienhientai:5000,
         tiencuoc:0,
@@ -461,12 +537,13 @@ var app9 = new Vue({
             }
         },
         sleep(ms) {
-        
             return new Promise(resolve => setTimeout(resolve, ms));
         }
     }
 })
+// End-Ví dụ 9
 
+// Ví dụ 10: Công Việc cần làm hôm nay (v-for, v-for component)
 Vue.component('todo-item', {
     template: '\
       <li style="margin-bottom:10px">\
@@ -475,10 +552,10 @@ Vue.component('todo-item', {
       </li>\
     ',
     props: ['title']
-  })
+})
   
-  new Vue({
-    el: '#todo-list-example',
+new Vue({
+    el: '#vd10_OtherDirective_ToDoList',
     data: {
       newTodoText: '',
       todos: [
@@ -510,9 +587,14 @@ Vue.component('todo-item', {
         this.newTodoText = ''
       }
     }
-  })
+})
+// End-Ví dụ 10
 
-  Vue.component('lp-button',{
+
+// ===== Component Basic =====
+
+// Component sử dụng do ví dụ 11 và 12
+Vue.component('lp-button',{
 
       data:function(){
           return {
@@ -554,8 +636,9 @@ Vue.component('todo-item', {
       template:"<button value='lp-button' v-on:click='doimau' class='description btn btn-primary' v-bind:style='dasac'>{{count}} - Mã màu: {{dasac.backgroundColor}} {{rgb}} <br> Loại màu: {{cautruc}}</button>"
   })
 
-  var app11 = new Vue({
-      el:"#app-11",
+// Ví dụ 11: Tạo một component và sử dụng
+new Vue({
+      el:"#vd11_ComponentBasic_TaoComponent",
       data: {
           codeHTML: `<lb-button></lb-button>`,
           codeJS: `
@@ -607,24 +690,24 @@ Vue.component('lp-button',{
             Event.$emit('openModal', this.codeHTML, this.codeJS)
         } 
       }
-  })
+})
+// End:vi dụ 11
 
+// Ví dụ 12: Tái sử dụng component
+new Vue({
+    el:"#vd12_ComponentBasic_TaiSuDungComponent"
+})
+// End:vi dụ 12
+
+// Ví dụ 13: Truyền dữ liệu bằng thuộc tính Props
 Vue.component('datablog',{
     props:['title'],
     template: '<h3>{{title}}</h3>'
 })
 
-Vue.component('lp-header',{
-    props:['dataheader','stylemin'],
-    template:'<h3 :style="stylemin">{{dataheader}}</h3>'
-})
-
-var app12 = new Vue({
-    el:"#app-12",
-    data:{
-        mamau:null,
-        text:null,
-        styleapp:null,
+new Vue({
+    el:"#vd13_ComponentBasic_Props",
+    data: {
         codeHTML_vd3: `
 <datablog title="Công ty Lampart"></datablog>
 <datablog title="Giới thiệu về Vue"></datablog>
@@ -636,6 +719,27 @@ Vue.component('datablog',{
     template: '<h3>{{title}}</h3>'
 }
         `,
+    },
+    methods: {
+        openModal: function(codeHTML, codeJS) {
+            Event.$emit('openModal', codeHTML, codeJS)
+        }
+    }
+})
+// End:Ví dụ 13
+
+// Ví dụ 14: Truyền dữ liệu động vào Component
+Vue.component('lp-header',{
+    props:['dataheader','stylemin'],
+    template:'<h3 :style="stylemin">{{dataheader}}</h3>'
+})
+
+new Vue({
+    el:"#vd14_ComponentBasic_DynamicData",
+    data:{
+        mamau:null,
+        text:null,
+        styleapp:null,
         codeHTML_vd4: `
 <div id="app">
     <p>Nhập mã màu và chuỗi kí tự từ bàn phím</p>
@@ -675,7 +779,6 @@ new Vue({
     }
 })
         `
-
     },
     watch: {
         // bất cứ lúc nào câu hỏi thay đổi, hàm bên dưới sẽ chạy
@@ -702,8 +805,9 @@ new Vue({
         } 
       }
 })
+// End:Ví dụ 14
 
-
+// Ví dụ 15: Một phần tử đơn lập trong component
 Vue.component('lp-error',{
     template:'<h1>1. HelloWorld</h1> <h2>1. HelloLampart</h2>'
 })
@@ -712,53 +816,8 @@ Vue.component('lp-success',{
     template:'<div class="lp-success"><h1>2. HelloWorld</h1> <h2>2. HelloLampart</h2></div>'
 })
 
-Vue.component('custom-input', {
-    props: ['value'],
-    template: `
-      <input class="form-control"
-        v-bind:value="value"
-        v-on:input="$emit('input', $event.target.value)"
->
-    `
-  })
-
-Vue.component('blog-post', {
-    props: ['post'],
-    template: `
-    <div class="blog-post">
-      <h3>{{ post.title }}</h3>
-      <button class="btn btn-primary" v-on:click="$emit('enlarge-text')">
-        Phóng to
-      </button>
-      <div v-html="post.content"></div>
-    </div>
-  `
-  })
-
-  Vue.component('blog-posts', {
-    props: ['post'],
-    template: `
-    <div class="blog-post">
-      <h3>{{ post.title }}</h3>
-      <button class="btn btn-primary" v-on:click="$emit('enlarge-text', 0.3)">
-        Phóng to
-      </button>
-      <div v-html="post.content"></div>
-    </div>
-  `
-  })
-
-  Vue.component('alert-box', {
-    template: `
-      <div class="alert alert-success">
-        <strong>Lỗi!</strong>
-        <slot></slot>
-      </div>
-    `
-  })
-  
-var app13 = new Vue({
-    el:"#app-13",
+new Vue({
+    el:"#vd15_ComponentBasic_PhanTuDonLap",
     data: {
         codeJS_error: `
 Vue.component('lp-error',{
@@ -785,9 +844,57 @@ methods: {
         } 
     }
 })
+// End:ví dụ 15
 
-var app14 = new Vue({
-    el:"#app-14",
+// Ví dụ 16 và 17: Gửi thông tin đến đối tượng cha bằng sự kiện
+// và Gửi giá trị khi phát hiện sự kiện
+Vue.component('custom-input', {
+    props: ['value'],
+    template: `
+      <input class="form-control"
+        v-bind:value="value"
+        v-on:input="$emit('input', $event.target.value)"
+>
+    `
+  })
+
+Vue.component('blog-post', {
+    props: ['post'],
+    template: `
+    <div class="blog-post">
+      <h3>{{ post.title }}</h3>
+      <button class="btn btn-primary" v-on:click="$emit('enlarge-text')">
+        Phóng to
+      </button>
+      <div v-html="post.content"></div>
+    </div>
+  `
+  })
+
+Vue.component('blog-posts', {
+    props: ['post'],
+    template: `
+    <div class="blog-post">
+      <h3>{{ post.title }}</h3>
+      <button class="btn btn-primary" v-on:click="$emit('enlarge-text', 0.3)">
+        Phóng to
+      </button>
+      <div v-html="post.content"></div>
+    </div>
+  `
+})
+
+Vue.component('alert-box', {
+    template: `
+        <div class="alert alert-success">
+        <strong>Lỗi!</strong>
+        <slot></slot>
+        </div>
+    `
+})
+  
+new Vue({
+    el:"#vd16_vd17_ComponentBasic_SuKien",
     data:{
         posts:[
             {id:1, title:'Giới thiệu về Vue', content:'Hello'},
@@ -884,9 +991,11 @@ new Vue({
         } 
     }
 })
+// End:ví dụ 16, 17
 
-var app15 = new Vue({
-    el:"#app-15",
+// Ví dụ 18: v-model trong comonent
+new Vue({
+    el:"#vd18_ComponentBasic_vModal",
     data:{
         msg:"Thông báo ban đầu",
         codeHTML_1: `
@@ -948,7 +1057,9 @@ Vue.component('custom-input', {
         } 
     }
 })
+// End:ví dụ 18
 
+// Ví dụ 19: Phân phối nội dung với <slot> 
 Vue.component('alert-box-name', {
 template: `
     <div class="container">
@@ -964,8 +1075,8 @@ template: `
 `
 })
 
-var app16 = new Vue({
-    el:"#app-16",
+new Vue({
+    el:"#vd19_ComponentBasic_SlotData",
     data: {
         codeJS_1: `
 Vue.component('alert-box', {
@@ -1016,115 +1127,9 @@ template: \`
     }
 
 })
+// End:ví dụ 19
 
-
-var transitionapp1 = new Vue({
-    el:"#transition-app1",
-    data: {
-        show: true,
-        codeHTML: `
-<div id="app">
-    <button v-on:click="show = !show"> 
-        Toggle
-    </button>
-    <transition name="fade">
-        <p v-if="show">HELLO LAMPART</p>
-    </transition>
-</div>
-        `,
-        codeJS: `
-new Vue({
-    el:"#app",
-    data: {
-        show: true,
-    },
-});
-        `,
-        codeCSS: `
-.fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-}
-`
-    },
-    methods: {
-        openModal: function() {
-            Event.$emit('openModal', this.codeHTML, this.codeJS, this.codeCSS)
-        }
-    }
-});
-
-
-
-Vue.component('modal', {
-    template: '#modal-template',
-})
-
-window.Event = new Vue();
-
-new Vue({
-    el:"#modal-cus",
-    data: {
-        showModal: false,
-        codeHTML: "",
-        codeJS: "",
-        codeCSS: ""
-    },
-    updated: function() {
-        Prism.highlightAll();
-    },
-    methods: {
-        openModal: function() {
-            this.showModal = true
-        },
-        closeModal: function() {
-            this.showModal = false;
-        },
-        getClass: function(codeHTML, codeJS, codeCSS) {
-            let gridSize = 12;
-            let returnClass = "col-sm-"
-            let numObj = 0;
-
-            if (codeCSS) {
-                numObj ++;
-            }
-            if (codeHTML) {
-                numObj ++;
-            }
-            if (codeJS) {
-                numObj ++;
-            }
-
-            return returnClass + gridSize/numObj;
-        }
-    },
-    mounted() {
-        Event.$on('openModal', (codeHTML, codeJS, codeCSS) => {
-            this.openModal();
-            this.codeHTML = codeHTML;
-            this.codeJS = codeJS;
-            this.codeCSS = codeCSS;
-        })
-    },
-})
-
-// Instance example
-var obj = {
-    fname: 'hai',
-    lname: 'nam'
-}
-var vm = new Vue({
-    data: obj
-});
-
-console.log(vm.fname);
-console.log(vm.$data);
-console.log(vm.$data.fname);
-
-// Slot Example about render scope
-
+// ví du 20: Phạm vi truy xuất trong <slot>
 Vue.component('get-com', {
     data: function() {
         return {
@@ -1143,7 +1148,7 @@ Vue.component('get-com', {
 })
 
 new Vue({
-    el:"#app-slot-render_scope",
+    el:"#vd20_ComponentBasic_SlotScope",
     data: {
         codeHTML: `
 <div id="app">
@@ -1181,9 +1186,196 @@ new Vue({
         } 
     }
 })
+// End:Ví dụ 20
+
+// Ví dụ 21: Mixins
+var helloFromMixinData = {
+    data: {
+        msg: "Hello from Mixins"
+    }
+}
 
 new Vue({
-    el: '#example-1',
+    el: "#vd21_ComponentBasic_Mixins",
+    mixins: [helloFromMixinData],
+    data: {
+        codeHTML: `
+<div id="app">
+    <h2> {{ msg }} </h1>
+</div>
+        `,
+        codeJS: `
+var helloFromMixinData = {
+    data: {
+        msg: "Hello from Mixins"
+    }
+}
+
+new Vue({
+    el: "#app",
+    mixins: [helloFromMixinData],
+}
+        `
+    },
+    methods: {
+        openModal: function() {
+            Event.$emit('openModal', this.codeHTML, this.codeJS, this.codeCSS )
+        }
+    } 
+
+})
+// End:Ví dụ 21
+
+// Ví dụ 22:  merge data Mixins
+var mixin_2 = {
+    data: {
+        dt: {
+            msg_mixin: 'mixin',
+            msg: 'This is message in Mixin'
+        }
+    },
+}
+
+new Vue({
+    el: "#vd22_ComponentBasic_MergeDataMixins",
+    mixins: [mixin_2],
+    data: {
+        dt: {
+            msg: 'This is message in component',
+            msg_component: 'component'
+        },
+        codeHTML: `
+<div id="app">
+    {{ dt }}
+</div>
+        `,
+        codeJS: `
+var mixin_2 = {
+    data: {
+        dt: {
+            msg_mixin: 'mixin',
+            msg: 'This is message in Mixin'
+        }
+    },
+}
+
+new Vue({
+    el: "#app",
+    mixins: [mixin_2],
+    data: {
+        dt: {
+            msg: 'This is message in component',
+            msg_component: 'component'
+        },
+    }
+})
+        `
+    },
+    methods: {
+        openModal: function() {
+            Event.$emit('openModal', this.codeHTML, this.codeJS)
+        }
+    } 
+})
+// End:ví dụ 22
+
+// Ví dụ 23: merge hàm hook Mixins
+var mixin_3 = {
+    created: function () {
+        console.log('This is created() method in mixin !')
+    }
+}
+
+new Vue({
+    el: "#vd23_ComponentBasic_MergeHookMixins",
+    mixins: [mixin_3],
+    data: {
+        codeJS: `
+var mixin_3 = {
+    created: function () {
+        console.log('This is created() method in mixin !')
+    }
+}
+
+new Vue({
+    mixins: [mixin_3],
+    created: function () {
+        console.log('This is created() method in component !')
+    }
+})
+        `
+    },
+    created: function () {
+        console.log('This is created() method in component !')
+    },
+    methods: {
+        openModal: function() {
+            Event.$emit('openModal', null, this.codeJS )
+        }
+    } 
+})
+// End:Ví dụ 23
+
+// Ví dụ 24: về Instance 
+var obj = {
+    fname: 'hai',
+    lname: 'nam'
+}
+var vm = new Vue({
+    data: obj
+});
+
+console.log(vm.fname);
+console.log(vm.$data);
+console.log(vm.$data.fname);
+// End Ví dụ 24
+
+
+// ===== Transitions =====
+
+// Ví dụ 25: Chuyển đổi Component/Element đơn lẻ
+new Vue({
+    el:"#vd25_Transitions_Transition",
+    data: {
+        show: true,
+        codeHTML: `
+<div id="app">
+    <button v-on:click="show = !show"> 
+        Toggle
+    </button>
+    <transition name="fade">
+        <p v-if="show">HELLO LAMPART</p>
+    </transition>
+</div>
+        `,
+        codeJS: `
+new Vue({
+    el:"#app",
+    data: {
+        show: true,
+    },
+});
+        `,
+        codeCSS: `
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+`
+    },
+    methods: {
+        openModal: function() {
+            Event.$emit('openModal', this.codeHTML, this.codeJS, this.codeCSS)
+        }
+    }
+});
+// End Ví dụ 25
+
+// Ví dụ 26: CSS-Transition
+new Vue({
+    el: '#vd26_Transitions_CSSTransition',
     data: {
       show: true,
       codeHTML: `
@@ -1223,10 +1415,12 @@ new Vue({
             Event.$emit('openModal', codeHTML, codeJS, codeCSS )
         } 
     }
-  })
+})
+// End Ví dụ 26
 
+// ví dụ 27: CSS-Animation
 new Vue({
-    el: '#example-2',
+    el: '#vd27_Transitions_CSSAnimation',
     data: {
         show: true,
         codeHTML: `
@@ -1270,142 +1464,22 @@ new Vue({
             Event.$emit('openModal', codeHTML, codeJS, codeCSS )
         } 
     }
-  })
-
-// Mixins
-var helloFromMixinData = {
-    data: {
-        msg: "Hello from Mixins"
-    }
-}
-
-new Vue({
-    el: "#app-mixins-1",
-    mixins: [helloFromMixinData],
-    data: {
-        codeHTML: `
-<div id="app">
-    <h2> {{ msg }} </h1>
-</div>
-        `,
-        codeJS: `
-var helloFromMixinData = {
-    data: {
-        msg: "Hello from Mixins"
-    }
-}
-
-new Vue({
-    el: "#app",
-    mixins: [helloFromMixinData],
-}
-        `
-    },
-    methods: {
-        openModal: function() {
-            Event.$emit('openModal', this.codeHTML, this.codeJS, this.codeCSS )
-        }
-    } 
-
 })
+// End Ví dụ 27
 
-var mixin_2 = {
-    data: {
-        dt: {
-            msg_mixin: 'mixin',
-            msg: 'This is message in Mixin'
-        }
-    },
-}
-
+// Ví dụ 28:  SỬ DỤNG CLASS TÙY BIẾN
 new Vue({
-    el: "#app-mixins-2",
-    mixins: [mixin_2],
-    data: {
-        dt: {
-            msg: 'This is message in component',
-            msg_component: 'component'
-        },
-        codeHTML: `
-<div id="app">
-    {{ dt }}
-</div>
-        `,
-        codeJS: `
-var mixin_2 = {
-    data: {
-        dt: {
-            msg_mixin: 'mixin',
-            msg: 'This is message in Mixin'
-        }
-    },
-}
-
-new Vue({
-    el: "#app",
-    mixins: [mixin_2],
-    data: {
-        dt: {
-            msg: 'This is message in component',
-            msg_component: 'component'
-        },
-    }
-})
-        `
-    },
-    methods: {
-        openModal: function() {
-            Event.$emit('openModal', this.codeHTML, this.codeJS)
-        }
-    } 
-})
-
-var mixin_3 = {
-    created: function () {
-        console.log('This is created() method in mixin !')
-    }
-}
-
-new Vue({
-    el: "#app-mixins-3",
-    mixins: [mixin_3],
-    data: {
-        codeJS: `
-var mixin_3 = {
-    created: function () {
-        console.log('This is created() method in mixin !')
-    }
-}
-
-new Vue({
-    mixins: [mixin_3],
-    created: function () {
-        console.log('This is created() method in component !')
-    }
-})
-        `
-    },
-    created: function () {
-        console.log('This is created() method in component !')
-    },
-    methods: {
-        openModal: function() {
-            Event.$emit('openModal', null, this.codeJS )
-        }
-    } 
-})
-
-
-
-new Vue({
-    el: '#example-3',
+    el: '#vd28_Transitions_ClassTuyBien',
     data: {
       show: true
     }
-  })
+})
+// End Ví dụ 28
 
 
-// Render function
+// ===== Component advance =====
+
+//  Ví dụ 29. Hiển thị tiêu đề có kích thước khác nhau với một component
 Vue.component("variable-heading", {
   template: "#variable-heading-template",
   props: {
@@ -1415,8 +1489,9 @@ Vue.component("variable-heading", {
     }
   }
 });
+
 new Vue({
-    el: "#app-render-function-1",
+    el: "#vd29_ComponentAdvance_RenderFunction",
     data: {
         codeHTML: `
 <script type="text/x-template" id="variable-heading-template">
@@ -1466,8 +1541,9 @@ new Vue({
         }
     }
 });
+// End Ví dụ 29
 
-// Virtual DOM
+// Ví dụ 30: Virtual DOM
 Vue.component("virtual-dom-example", {
   data() {
     return { msg: "hello render function" };
@@ -1478,7 +1554,7 @@ Vue.component("virtual-dom-example", {
 });
 
 new Vue({
-    el:"#app-virtual-dom",
+    el:"#vd30_ComponentAdvance_VirtualDOM",
     data : {
         codeHTML: `
 <virtual-dom-example/>
@@ -1500,11 +1576,12 @@ Vue.component("virtual-dom-example", {
         }
     }
 })
+// End Ví dụ 30
 
+// Ví dụ 31: Reactive Interface
 var addStudentMethod = () => {
     Vue.set(app_ri.nextTodoId, app_ri.nextTodoId++)
 }
-
 
 Vue.component('student-item', {
     template: '\
@@ -1535,9 +1612,8 @@ var listStudent = [
         }
       ]
 
-
 var app_ri = new Vue({
-    el: '#app-reactive-interface',
+    el: '#vd31_ComponentAdvance_ReactiveInterface',
     data: {
       newStudent: "",
       students: listStudent,
@@ -1631,4 +1707,5 @@ var app_ri = new Vue({
             Event.$emit('openModal', this.codeHTML, this.codeJS )
         }
     }
-  })
+})
+// End Ví dụ 31 

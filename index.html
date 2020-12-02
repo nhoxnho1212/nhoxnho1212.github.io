@@ -33,20 +33,7 @@
 
   <script type = "text/javascript" src = "js/vue.js"></script>
   <script type = "text/javascript" src = "node_modules/dist/vue-router"></script>
-  <script>
 
-    Prism.plugins.NormalizeWhitespace.setDefaults({
-      'remove-trailing': true,
-      'remove-indent': true,
-      'left-trim': true,
-      'right-trim': true,
-      /*'break-lines': 80,
-      'indent': 2,
-      'remove-initial-line-feed': false,
-      'tabs-to-spaces': 4,
-      'spaces-to-tabs': 4*/
-    });
-  </script>
 
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
@@ -57,12 +44,6 @@
       <div class="modal-mask" >
         <div class="modal-wrapper">
           <div class="modal-container">
-<!-- 
-            <div class="modal-header">
-              <slot name="header">
-              </slot>
-            </div> -->
-
             <div class="modal-body row">
                 <slot name="body-template"></slot>
                 <slot name="body-script"></slot>
@@ -115,25 +96,16 @@
           <li><a href="#data">Data and Method</a></li>
           <li><a href="#v-bind">V-bind</a></li>
           <li><a href="#computed">Computed and Watcher</a></li>
-
-          <li class="drop-down"><a href="">Other Directive/Transitions & Animation</a>
+          
+          <li class="drop-down"><a href="#ORDER-DIRECTIVE">Other Directive</a>
             <ul>
               <li><a href="#V-IF">V-IF, V-ELSE</a></li>
-              <!-- <li class="drop-down"><a href="#">Drop Down 2</a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li> -->
-              <li><a href="#">V-FOR</a></li>
-              <li><a href="#">V-TEXT, V-PRE</a></li>
-              <li><a href="#">V-SHOW</a></li>
-              <li><a href="#">V-CLOARK</a></li>
+              <li><a href="#V-FOR">V-FOR</a></li>
+              <li><a href="#V-TEXT">V-TEXT, V-PRE</a></li>
+              <li><a href="#V-SHOW">V-SHOW</a></li>
             </ul>
           </li>
+          <li><a href="#transitions">Transitions & Animation</a></li>
           <li class="drop-down"><a href="#componentbasic">Component</a>
             <ul>
               <li><a href="#componentbasic">Component Basic</a></li>
@@ -182,9 +154,9 @@
         </header>
 
         <div class="row">
-
+          <!-- Ví dụ 1: Data return -->
           <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
-            <div class="box" id="app-1">
+            <div class="box" id="vd1_DataAndMethod_DataReturn">
               <div class="icon"><i class="ion-ios-analytics-outline" style="color: #018849;"></i></div>
               <h4 class="title"><a href="#">Ví dụ 1: Data Return</a></h4>
               <p class="description">{{msg}}</p>
@@ -194,23 +166,21 @@
               </div>
             </div>
           </div>
-
+          
+          <!-- Ví dụ 2: Data Computed -->
           <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
-            <div class="box" id="app-2">
+            <div class="box" id="vd2_DataAndMethod_DataComputed">
               <div class="icon"><i class="ion-ios-bookmarks-outline" style="color: #018849;"></i></div>
               <h4 class="title"><a href="#">Ví dụ 2: Data Computed</a></h4>
               <form action="">
                 <div class="form-row">
                   <div class="form-group col-lg-6">
                     <input v-model="soa" type="number" name="soa" class="form-control" id="name" placeholder="Số a" />
-
                   </div>
                   <div class="form-group col-lg-6">
                     <input v-model="sob" type="number" class="form-control" name="sob" id="email" placeholder="Số b" />
-
                   </div>
                   <p class="title" style="font-size:20px"><b>Kết quả a + b: </b>{{tinhtong(soa,sob)}}</p>
-
                 </div>
               </form>
               <div align='right'>
@@ -220,8 +190,9 @@
             </div>
           </div>
 
+          <!-- Ví dụ 3: v-on Click -->
           <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
-            <div class="box" id="app-3">
+            <div class="box" id="vd3_DataAndMethod_VOnClick">
               <div class="icon"><i class="ion-ios-paper-outline" style="color: #018849;"></i></div>
               <h4 class="title"><a href="#">Ví dụ 3: v-on Click</a></h4>
               <p class="description">
@@ -238,12 +209,11 @@
             </div>
           </div>
 
-
+          <!-- Ví dụ 4: v-once -->
           <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
-            <div class="box" id="app-4">
+            <div class="box" id="vd4_DataAndMethod_VOnce">
               <div class="icon"><i class="ion-ios-speedometer-outline" style="color:#018849;"></i></div>
               <h4 class="title"><a href="">Ví dụ 4: v-on Click, v-once</a></h4>
-
               <p class="description">
                 <b>Giờ hiện tại:</b>
                 <span v-once>{{time}}</span>
@@ -258,8 +228,9 @@
             </div>
           </div>
 
+          <!-- Ví dụ 5: Raw HTML -->
           <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
-            <div class="box" id="app-5">
+            <div class="box" id="vd5_DataAndMethod_RawHTML">
               <div class="icon"><i class="ion-ios-world-outline" style="color: #018849;"></i></div>
               <h4 class="title"><a href="">Ví dụ 5: Raw HTML, HTML</a></h4>
               <p class="description">Raw HTML: {{rawHTML}}</p>
@@ -270,18 +241,16 @@
               </div>
             </div>
           </div>
+
         </div>
-
-
-      </div>
 
       </div>
     </section><!-- #services -->
 
-    <!--==========================
-      About Us Section
-    ============================-->
 
+    <!--
+      Demo minh hoạ VUEJS - v-bind
+    -->
     <section id="about">
       <div class="container" id="v-bind">
 
@@ -296,8 +265,8 @@
         <div class="row about-container">
 
           <div class="col-lg-6 content order-lg-1 order-2">
-
-            <div class="icon-box wow fadeInUp" id="app-6">
+            <!-- Ví dụ 6: v-bind:disabled button-->
+            <div class="icon-box wow fadeInUp" id="vd6_VBind_DisableButton">
               <div class="icon"><i class="fa fa-shopping-bag"></i></div>
               <h4 class="title"><a href="">Kích hoạt button</a></h4>
               <p class="description">Gia trị của <code>isButtonDisable</code>: <code>{{isButtonDisable}}</code></p>
@@ -319,8 +288,6 @@
               <div class="icon"><i class="fa fa-photo"></i></div>
               <h4 class="title"><a href="">Viết tắt v-bind</a></h4>
               <p class="description">Ta có thể viết <code>:disabled</code> thay vì <code>v-bind:disabled</code></p>
-
-
             </div>
 
             <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
@@ -335,7 +302,6 @@
               <p class="description">
                 Thuộc tính <code>v-bind:id</code> cho phép sử dụng thuộc tính id trong VueJS</p>
               </p>
-
               <p class="description">
                 Tác dụng của việc sử dụng của những thẻ này cho phép ta sử dụng thuộc tính dynamic <b>(thuộc tính
                   động)</b>
@@ -343,23 +309,28 @@
             </div>
 
           </div>
-
+        
           <div class="col-lg-6 background order-lg-2 order-1 wow fadeInUp">
             <img src="img/VUE-V-Bind.png" class="img-fluid" alt="">
           </div>
+
         </div>
 
+        <!--
+          Demo minh hoạ VUEJS - Computed và watcher
+        -->
         <header class="section-header" id="computed">
           <h3 style="color:#018849">Computed property và watcher</h3>
           <p><b>Computed</b>Được sinh ra sau thực hiện một hàm. Thường thì viết trực tiếp trong template bằng cách gọi
             trực tiếp trong cặp dấu <code>{{}}</code>, Computed không có tham số truyền vào</p>
-
         </header>
 
-        <div class="row about-extra" id="app-7">
+        <!-- Ví dụ 7: Bài toán con giáp (computed) -->
+        <div class="row about-extra" id="vd7_ComputedWatcher_BaiToanConGiap">
           <div class="col-lg-6 wow fadeInUp">
             <img src="img/isometric_heart_b.png" class="img-fluid" alt="">
           </div>
+
           <div class="col-lg-6 wow fadeInUp pt-5 pt-lg-0">
             <h4>BÀI TOÁN CON GIÁP - (COMPUTED) </h4>
             <h5> TÍNH CAN CHI TỪ MỘT NĂM NHẬP TỪ BÀN PHÍM</h5>
@@ -379,8 +350,10 @@
             <br>
             <h4>Năm vừa nhập là năm: {{tinhcan}} </h4>
           </div>
+
         </div>
 
+        <!-- So dánh Computed và Methods -->
         <div class="row about-extra">
           <div class="col-lg-6 wow fadeInUp order-1 order-lg-2">
             <img src="img/vue_contact.png" class="img-fluid" alt="">
@@ -444,7 +417,8 @@ methods:{
 
         </div>
 
-        <div class="row about-extra" id="app-8">
+        <!-- Ví dụ 8: Ứng dụng đặt và trả lới yes/no (Watcher) -->
+        <div class="row about-extra" id="vd8_ComputedWatcher_UngDungYesNo">
           <div class="col-lg-6 wow fadeInUp">
             <img src="img/WATCHER.png" class="img-fluid" alt="">
           </div>
@@ -469,6 +443,7 @@ methods:{
           </div>
         </div>
 
+        <!-- So sánh Computed và watcher -->
         <div class="row about-extra">
           <div class="col-lg-6 wow fadeInUp order-1 order-lg-2">
             <img src="img/computedwatcher.png" class="img-fluid" alt="">
@@ -509,28 +484,29 @@ methods:{
           </div>
 
         </div>
+
       </div>
     </section><!-- #about -->
 
-    <!--==========================
-      About Us Section
-    ============================-->
-
-    <section id="V-IF">
+    <!--
+          Demo minh hoạ VUEJS - những Directive khác
+    -->>
+    <section id="ORDER-DIRECTIVE">
       <div class="container">
 
         <header class="section-header" id="computed">
           <h3 style="color:#018849">Other Directive</h3>
         </header>
 
-        <div class="row about-container" id="app-9">
+        <!-- Ví dụ 9: Trỏ chơi tài xỉu (v-if, v-else) -->
+        <div class="row about-container" id="vd9_OtherDirective_TaiXiu">
 
           <div class="col-lg-6 content order-lg-1 order-2">
             <p>
               Phần này trình bày một số directive thông dụng, thường sử dụng nhất.
             </p>
 
-            <div>
+            <div id="V-IF">
               <h5><b style="color:#598f2d">#</b> V-IF, V-ELSE</h5>
               <p>Dùng để kiểm tra điều kiện của một câu lệnh </p>
             </div>
@@ -614,16 +590,17 @@ methods:{
             <img src="img/v-for.png" class="img-fluid" alt="">
           </div>
           <div class="col-lg-6 wow fadeInUp pt-5 pt-lg-0">
-            <div>
+            <div id="V-FOR">
               <h5><b style="color:#598f2d">#</b> V-FOR</h5>
               <p>Dùng để render danh sách, một số tài tiếng anh gọi là map danh sách.</p>
               <p><code>v-for</code> mapping danh sách dựa trên một mảng</p>
               <p>Cú pháp duyệt mảng <code>v-for</code> như sau <code>item in items</code></p>
             </div>
-            <div class="row about-container" id="app-10">
 
+            <!-- Ví dụ 10:  Công Việc cần làm hôm nay (v-for, v-for component)-->
+            <div class="row about-container" id="vd10_OtherDirective_ToDoList">
               <div class="wow fadeInUp pt-5 pt-lg-0">
-                <h4><b>NHỮNG CÔNG VIỆC CẦN LÀM HÔM NAY <br> (V-FOR và V-FOR componet)</b> </h4>
+                <h4><b>NHỮNG CÔNG VIỆC CẦN LÀM HÔM NAY <br> (V-FOR và V-FOR component)</b> </h4>
                 <h5> SẮP XẾP CÔNG VIỆC CẦN LÀM CHO NGÀY HÔM NAY</h5>
                 <div id="todo-list-example">
                   <div class="form-group col-lg-6 form-check-inline">
@@ -636,8 +613,6 @@ methods:{
                   </ul>
                 </div>
               </div>
-
-
             </div>
 
           </div>
@@ -648,7 +623,7 @@ methods:{
             </div>
 
             <div class="col-lg-6 wow fadeInUp pt-4 pt-lg-0 order-2 order-lg-1">
-              <div>
+              <div id="V-TEXT">
                 <h5><b style="color:#598f2d">#</b> V-TEXT</h5>
                 <p>Có hai cách để lấy data dạng <code>string</code> cách 1 dùng trực tiếp <br> <code
                     class="language-html"><span class="nt">&lt;p&gt; {{msg}} &lt;/p&gt;</span></code></p>
@@ -656,14 +631,14 @@ methods:{
                     class="language-html"><span class="nt">&lt;p v-text="msg"&gt;&lt;/p&gt;</span></code></p>
               </div>
 
-              <div>
+              <div id="V-PRE">
                 <h5><b style="color:#598f2d">#</b> V-PRE</h5>
                 <p>Directive <code>V-PRE</code> Cho phép ta ngừng thực thi code js. Lấy ví dụ chúng ta có msg:abc. Giả
                   sử thường ta sử dụng sẽ xuất ra <b>abc</b>. Nhưng trường hợp sử dụng
                   <code>&lt;p&gt;{{msg}}&lt;/p&gt;</code> kết quả sẽ trả về <code>{{msg}}</code></b></p>
               </div>
 
-              <div>
+              <div id="V-SHOW">
                 <h5><b style="color:#598f2d">#</b> V-SHOW</h5>
                 <p><code>v-show</code> cách dùng tương tự như <code>v-if</code> tuy nhiên v-if luôn luôn được render và
                   chứa trong DOM; v-show chỉ bật tắt thuộc tính display của phần tử này.</p>
@@ -677,9 +652,9 @@ methods:{
         </div>
     </section><!-- #about -->
 
-    <!--==========================f
-      Services Section
-    ============================-->
+    <!--
+          Demo minh hoạ VUEJS - Component basic
+    -->
     <section id="services" class="section-bg">
       <div class="container" id="componentbasic">
 
@@ -689,12 +664,12 @@ methods:{
             <code>&lt;tag&gt;</code> mới của chính mình</p>
         </header>
 
-        <div class="row" id="app-11">
-
-          <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+        <div class="row">
+          <!-- Ví dụ 11: Tạo một component và sử dụng -->
+          <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s" id= "vd11_ComponentBasic_TaoComponent">
             <div class="box">
               <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
-              <h4 class="title"><a href="">Ví dụ 1. Tạo một button mang tên </a> </h4>
+              <h4 class="title"><a href="">Ví dụ 11. Tạo một button mang tên </a> </h4>
               <p class="description"><code>'lp-button'</code></p>
               <p class="description" style="text-align: justify;">Tạo một button có background mã màu ngẫu nhiên khi
                 click. Nếu màu sáng thì chữ màu đen, nếu màu tối thì chữ màu trắng</p>
@@ -707,15 +682,14 @@ methods:{
                 <button class="btn btn-default btn-image" @click="openModal()"
                   style="background-image: url('img/coding.png');"></button>
               </div>
-
             </div>
           </div>
 
-
-          <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
+          <!-- Ví dụ 12: Tái sử dụng Component -->
+          <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s" id="vd12_ComponentBasic_TaiSuDungComponent">
             <div class="box">
               <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
-              <h4 class="title"><a href="">Ví dụ 2. Tái sử dụng Component</a> </h4>
+              <h4 class="title"><a href="">Ví dụ 12. Tái sử dụng Component</a> </h4>
               <p class="description"><code>'lp-button'</code></p>
               <p class="description" style="text-align: justify;">Tái sử dụng component <code>lp-button</code> đã tạo ở
                 ví dụ 1</p>
@@ -727,6 +701,7 @@ methods:{
               </div>
             </div>
           </div>
+
         </div>
 
         <div class="row">
@@ -747,7 +722,6 @@ methods:{
               <div>
                 <lp-button></lp-button>
               </div>
-
 
             </div>
           </div>
@@ -779,12 +753,12 @@ methods:{
           </div>
         </div>
 
-        <div class="row" id="app-12">
-
-          <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+        <div class="row">
+          <!-- Ví dụ 13: Truyền dữ liệu bằng thuộc tính Props -->
+          <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s" id="vd13_ComponentBasic_Props">
             <div class="box">
               <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
-              <h4 class="title"><a href="">Ví dụ 3. Truyền dữ liệu bằng thuộc tính Props</a> </h4>
+              <h4 class="title"><a href="">Ví dụ 13. Truyền dữ liệu bằng thuộc tính Props</a> </h4>
               <div class="description">
                 <datablog title="Công ty Lampart"></datablog>
                 <datablog title="Giới thiệu về Vue"></datablog>
@@ -797,11 +771,11 @@ methods:{
             </div>
           </div>
 
-
-          <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
+          <!-- Ví dụ 14: Truyền dữ liệu động vào Component -->
+          <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s" id="vd14_ComponentBasic_DynamicData">
             <div class="box">
               <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
-              <h4 class="title"><a href="">Ví dụ 4. Truyền dữ liệu động vào Component</a> </h4>
+              <h4 class="title"><a href="">Ví dụ 14. Truyền dữ liệu động vào Component</a> </h4>
               <p class="description"><code>'lp-header'</code></p>
               <p class="description" style="text-align: justify;">Nhập mã màu và chuỗi kí tự từ bàn phím</p>
               <div class="form-group col-lg-6 form-check-inline description">
@@ -826,12 +800,13 @@ methods:{
           </div>
         </div>
 
-        <div class="row" id="app-13">
+        <!-- Ví dụ 15: Một phần tử đơn lập trong component -->
+        <div class="row" id="vd15_ComponentBasic_PhanTuDonLap">
 
           <div class="col-md-6 col-lg-10 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
             <div class="box">
               <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
-              <h4 class="title"><a href=""></a>Ví dụ 5: Một phần tử đơn lập trong component</a> </h4>
+              <h4 class="title"><a href=""></a>Ví dụ 15: Một phần tử đơn lập trong component</a> </h4>
               <div class="description">
                 <p>Vì component chỉ chứa một phần tử <code>Root</code> đơn lập nên ta không thể thể hiện một component
                   như sau </p>
@@ -860,18 +835,18 @@ methods:{
 
         </div>
 
-        <div class="row" id="app-14">
-
+        <div class="row" id="vd16_vd17_ComponentBasic_SuKien">
+          
+          <!-- Ví dụ 16: Gửi thông tin đến đối tượng cha bằng sự kiện -->
           <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
             <div class="box">
               <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
-              <h4 class="title"><a href="">Ví dụ 6. Gửi thông tin đến đối tượng cha bằng sự kiện</a> </h4>
+              <h4 class="title"><a href="">Ví dụ 16. Gửi thông tin đến đối tượng cha bằng sự kiện</a> </h4>
               <div class="description">
                 <div :style="{ fontSize: postFontSize + 'em' }">
                   <p>Hello</p>
                   <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:post="post"
                     v-on:enlarge-text="postFontSize += 0.1"></blog-post>
-
                 </div>
               </div>
               <div align='right'>
@@ -881,17 +856,16 @@ methods:{
             </div>
           </div>
 
-
+          <!-- Vi dụ 17: Gửi giá trị khi phát hiện sự kiện -->
           <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
             <div class="box">
               <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
-              <h4 class="title"><a href="">Ví dụ 7. Gửi giá trị khi phát hiện sự kiện</a> </h4>
+              <h4 class="title"><a href="">Ví dụ 17. Gửi giá trị khi phát hiện sự kiện</a> </h4>
               <div class="description">
                 <div :style="{ fontSize: postFontSize2 + 'em' }">
                   <p>Hello</p>
                   <blog-posts v-for="post in posts" v-bind:key="post.id" v-bind:post="post"
                     v-on:enlarge-text="postFontSize2 += $event"></blog-posts>
-
                 </div>
               </div>
               <div align='right'>
@@ -902,12 +876,13 @@ methods:{
           </div>
         </div>
 
-        <div class="row" id="app-15">
+        <!-- Ví dụ 18: v-model trong comonent -->
+        <div class="row" id="vd18_ComponentBasic_vModal">
 
           <div class="col-md-6 col-lg-10 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
             <div class="box">
               <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
-              <h4 class="title"><a href=""></a>Ví dụ 8. <code>v-model</code> trong component</a> </h4>
+              <h4 class="title"><a href=""></a>Ví dụ 18. <code>v-model</code> trong component</a> </h4>
               <div class="description">
                 <p> Sử dụng v-model trong component. Giả sử ta sử dụng <code>&lt;input v-model="searchText"&gt;</code>
                   thì chúng ta sử dụng bình thường, tuy nhiên việc này đối với <code>component</code> cần phải được
@@ -948,11 +923,11 @@ methods:{
         </div>
 
         <div class="row">
-
-          <div id="app-16" class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+          <!-- Ví dụ 19: Phân phối nội dung với <slot>  -->
+          <div id="vd19_ComponentBasic_SlotData" class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
             <div class="box">
               <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
-              <h4 class="title"><a href="">Ví dụ 9. Phân phối nội dung với </a> <code>&lt;slot&gt;</code> </h4>
+              <h4 class="title"><a href="">Ví dụ 19. Phân phối nội dung với </a> <code>&lt;slot&gt;</code> </h4>
               <div class="container">
                 <div class="description">
                   <alert-box>
@@ -986,12 +961,11 @@ methods:{
             </div>
           </div>
 
-          <!-- Slot: Render Scope -->
-
-          <div id="app-slot-render_scope" class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
+          <!-- ví du 20: Phạm vi truy xuất trong <slot>-->
+          <div id="vd20_ComponentBasic_SlotScope" class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
             <div class="box">
               <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
-              <h4 class="title"><a href="">Ví dụ 10. Phạm vi truy xuất trong </a> <code>&lt;slot&gt;</code> </h4>
+              <h4 class="title"><a href="">Ví dụ 20. Phạm vi truy xuất trong </a> <code>&lt;slot&gt;</code> </h4>
               <div class="description">
                 <p>Có thể truy xuất dữ liệu trong component chứa slot bằng cách khai báo <code>v-bind</code> trong
                   component cha và dùng <code>v-slot</code> khi muốn sử dụng</p>
@@ -1007,15 +981,15 @@ methods:{
           </div>
         </div>
       
-
-      <!-- Mixin -->
       <div class="row">
         <div class="col-md-6 col-lg-10 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
           <div class="box">
             <h4 class="title"><a href=""></a>Ví dụ 11. Mixins</h4>
             <div class="description">
+
+              <!-- Ví dụ 21: Mixins -->
               <p>Để có thể thêm Data và Methods từ bên ngoài ta sử dụng <code>mixins</code></p>
-              <div id="app-mixins-1">
+              <div id="vd21_ComponentBasic_Mixins">
                 <h2> {{ msg }} </h1>
                 <div align='right'>
                   <button class="btn btn-default btn-image" @click="openModal()" 
@@ -1024,8 +998,10 @@ methods:{
                 </div>
                 <br>
               </div>
+
+              <!-- Ví dụ 22: merge data Mixins -->
               <p>Với những tuỳ chọn trùng nhau, những tuỳ chọn này sẽ được <b>merge</b> và <b>ưu tiên những tuỳ chọn trong component</b></p>
-              <div id="app-mixins-2">
+              <div id="vd22_ComponentBasic_MergeDataMixins">
                 <div style="width: 50%;">                  
                   <pre class="line-numbers" style="white-space:pre-wrap;">
                     <code 
@@ -1034,16 +1010,18 @@ methods:{
 {{ dt }}
                     </code>
                   </pre>
-                  </div>
-                  <div align='right'>
-                    <button class="btn btn-default btn-image" @click="openModal()"
-                      style="background-image: url('img/coding.png');"></button>
-                  </div>
                 </div>
-                <br>
+                <div align='right'>
+                  <button class="btn btn-default btn-image" @click="openModal()"
+                    style="background-image: url('img/coding.png');"></button>
+                </div>
               </div>
+
+              <br>
+              
+              <!-- Ví dụ 23: merge hàm hook Mixins -->
               <p>Những hàm hook có tên trùng sẽ được merge vào trong <b>một mảng</b> để tất cả đều được gọi. Những hook trong mixin sẽ được gọi trước những hook trong component.</p>
-              <div id="app-mixins-3">
+              <div id="vd23_ComponentBasic_MergeHookMixins">
                 <div style="width: 50%;">                  
                   <pre class="line-numbers" style="white-space:pre-wrap;">
                     <code 
@@ -1061,6 +1039,8 @@ methods:{
                 </div>
                 <br>
               </div>
+
+              <!-- So sánh local Mixins và Global Mixins -->
               <div>
                 <table class="table table-nhut table-bordered">
                   <thead>
@@ -1120,467 +1100,18 @@ new Vue({
                   </tbody>
                 </table>
               </div>
+
             </div>
           </div>
         </div>
       </div>
     </section><!-- #services -->
 
-    <!--==========================
-      Why Us Section
-    ============================-->
-    <!-- <section id="why-us" class="wow fadeIn">
-      <div class="container">
-        <header class="section-header">
-          <h3>Why choose us?</h3>
-          <p>Laudem latine persequeris id sed, ex fabulas delectus quo. No vel partiendo abhorreant vituperatoribus.</p>
-        </header>
-
-        <div class="row row-eq-height justify-content-center">
-
-          <div class="col-lg-4 mb-4">
-            <div class="card wow bounceInUp">
-                <i class="fa fa-diamond"></i>
-              <div class="card-body">
-                <h5 class="card-title">Corporis dolorem</h5>
-                <p class="card-text">Deleniti optio et nisi dolorem debitis. Aliquam nobis est temporibus sunt ab inventore officiis aut voluptatibus.</p>
-                <a href="#" class="readmore">Read more </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 mb-4">
-            <div class="card wow bounceInUp">
-                <i class="fa fa-language"></i>
-              <div class="card-body">
-                <h5 class="card-title">Voluptates dolores</h5>
-                <p class="card-text">Voluptates nihil et quis omnis et eaque omnis sint aut. Ducimus dolorum aspernatur.</p>
-                <a href="#" class="readmore">Read more </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 mb-4">
-            <div class="card wow bounceInUp">
-                <i class="fa fa-object-group"></i>
-              <div class="card-body">
-                <h5 class="card-title">Eum ut aspernatur</h5>
-                <p class="card-text">Autem quod nesciunt eos ea aut amet laboriosam ab. Eos quis porro in non nemo ex. </p>
-                <a href="#" class="readmore">Read more </a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="row counters">
-
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">274</span>
-            <p>Clients</p>
-          </div>
-
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">421</span>
-            <p>Projects</p>
-          </div>
-
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">1,364</span>
-            <p>Hours Of Support</p>
-          </div>
-
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">18</span>
-            <p>Hard Workers</p>
-          </div>
-  
-        </div>
-
-      </div>
-    </section> -->
-
-    <!--==========================
-      Portfolio Section
-    ============================-->
-    <!-- <section id="portfolio" class="clearfix">
-      <div class="container">
-
-        <header class="section-header">
-          <h3 class="section-title">Our Portfolio</h3>
-        </header>
-
-        <div class="row">
-          <div class="col-lg-12">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-app">App</li>
-              <li data-filter=".filter-card">Card</li>
-              <li data-filter=".filter-web">Web</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="row portfolio-container">
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="img/portfolio/app1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4><a href="#">App 1</a></h4>
-                <p>App</p>
-                <div>
-                  <a href="img/portfolio/app1.jpg" data-lightbox="portfolio" data-title="App 1" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
-                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-wow-delay="0.1s">
-            <div class="portfolio-wrap">
-              <img src="img/portfolio/web3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4><a href="#">Web 3</a></h4>
-                <p>Web</p>
-                <div>
-                  <a href="img/portfolio/web3.jpg" class="link-preview" data-lightbox="portfolio" data-title="Web 3" title="Preview"><i class="ion ion-eye"></i></a>
-                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app" data-wow-delay="0.2s">
-            <div class="portfolio-wrap">
-              <img src="img/portfolio/app2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4><a href="#">App 2</a></h4>
-                <p>App</p>
-                <div>
-                  <a href="img/portfolio/app2.jpg" class="link-preview" data-lightbox="portfolio" data-title="App 2" title="Preview"><i class="ion ion-eye"></i></a>
-                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="img/portfolio/card2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4><a href="#">Card 2</a></h4>
-                <p>Card</p>
-                <div>
-                  <a href="img/portfolio/card2.jpg" class="link-preview" data-lightbox="portfolio" data-title="Card 2" title="Preview"><i class="ion ion-eye"></i></a>
-                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-wow-delay="0.1s">
-            <div class="portfolio-wrap">
-              <img src="img/portfolio/web2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4><a href="#">Web 2</a></h4>
-                <p>Web</p>
-                <div>
-                  <a href="img/portfolio/web2.jpg" class="link-preview" data-lightbox="portfolio" data-title="Web 2" title="Preview"><i class="ion ion-eye"></i></a>
-                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app" data-wow-delay="0.2s">
-            <div class="portfolio-wrap">
-              <img src="img/portfolio/app3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4><a href="#">App 3</a></h4>
-                <p>App</p>
-                <div>
-                  <a href="img/portfolio/app3.jpg" class="link-preview" data-lightbox="portfolio" data-title="App 3" title="Preview"><i class="ion ion-eye"></i></a>
-                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="img/portfolio/card1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4><a href="#">Card 1</a></h4>
-                <p>Card</p>
-                <div>
-                  <a href="img/portfolio/card1.jpg" class="link-preview" data-lightbox="portfolio" data-title="Card 1" title="Preview"><i class="ion ion-eye"></i></a>
-                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card" data-wow-delay="0.1s">
-            <div class="portfolio-wrap">
-              <img src="img/portfolio/card3.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4><a href="#">Card 3</a></h4>
-                <p>Card</p>
-                <div>
-                  <a href="img/portfolio/card3.jpg" class="link-preview" data-lightbox="portfolio" data-title="Card 3" title="Preview"><i class="ion ion-eye"></i></a>
-                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-wow-delay="0.2s">
-            <div class="portfolio-wrap">
-              <img src="img/portfolio/web1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4><a href="#">Web 1</a></h4>
-                <p>Web</p>
-                <div>
-                  <a href="img/portfolio/web1.jpg" class="link-preview" data-lightbox="portfolio" data-title="Web 1" title="Preview"><i class="ion ion-eye"></i></a>
-                  <a href="#" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>#portfolio -->
-
-    <!--==========================
-      Clients Section
-    ============================-->
-    <!-- <section id="testimonials" class="section-bg">
-      <div class="container">
-
-        <header class="section-header">
-          <h3>Testimonials</h3>
-        </header>
-
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-
-            <div class="owl-carousel testimonials-carousel wow fadeInUp">
-    
-              <div class="testimonial-item">
-                <img src="img/testimonial-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
-                <p>
-                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                </p>
-              </div>
-    
-              <div class="testimonial-item">
-                <img src="img/testimonial-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
-                <p>
-                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                </p>
-              </div>
-    
-              <div class="testimonial-item">
-                <img src="img/testimonial-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-                <p>
-                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                </p>
-              </div>
-    
-              <div class="testimonial-item">
-                <img src="img/testimonial-4.jpg" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-                <p>
-                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                </p>
-              </div>
-    
-              <div class="testimonial-item">
-                <img src="img/testimonial-5.jpg" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-                <p>
-                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                </p>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-
-
-      </div>
-    </section>#testimonials -->
-
-    <!--==========================
-      Team Section
-    ============================-->
-    <!-- <section id="team">
-      <div class="container">
-        <div class="section-header">
-          <h3>Team</h3>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
-        </div>
-
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6 wow fadeInUp">
-            <div class="member">
-              <img src="img/team-1.jpg" class="img-fluid" alt="">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4>Walter White</h4>
-                  <span>Chief Executive Officer</span>
-                  <div class="social">
-                    <a href=""><i class="fa fa-twitter"></i></a>
-                    <a href=""><i class="fa fa-facebook"></i></a>
-                    <a href=""><i class="fa fa-google-plus"></i></a>
-                    <a href=""><i class="fa fa-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="member">
-              <img src="img/team-2.jpg" class="img-fluid" alt="">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4>Sarah Jhonson</h4>
-                  <span>Product Manager</span>
-                  <div class="social">
-                    <a href=""><i class="fa fa-twitter"></i></a>
-                    <a href=""><i class="fa fa-facebook"></i></a>
-                    <a href=""><i class="fa fa-google-plus"></i></a>
-                    <a href=""><i class="fa fa-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-            <div class="member">
-              <img src="img/team-3.jpg" class="img-fluid" alt="">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4>William Anderson</h4>
-                  <span>CTO</span>
-                  <div class="social">
-                    <a href=""><i class="fa fa-twitter"></i></a>
-                    <a href=""><i class="fa fa-facebook"></i></a>
-                    <a href=""><i class="fa fa-google-plus"></i></a>
-                    <a href=""><i class="fa fa-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-            <div class="member">
-              <img src="img/team-4.jpg" class="img-fluid" alt="">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4>Amanda Jepson</h4>
-                  <span>Accountant</span>
-                  <div class="social">
-                    <a href=""><i class="fa fa-twitter"></i></a>
-                    <a href=""><i class="fa fa-facebook"></i></a>
-                    <a href=""><i class="fa fa-google-plus"></i></a>
-                    <a href=""><i class="fa fa-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>#team -->
-
-    <!--==========================
-      Clients Section
-    ============================-->
-    <!-- <section id="clients" class="section-bg">
-
-      <div class="container">
-
-        <div class="section-header">
-          <h3>Our CLients</h3>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque dere santome nida.</p>
-        </div>
-
-        <div class="row no-gutters clients-wrap clearfix wow fadeInUp">
-
-          <div class="col-lg-3 col-md-4 col-xs-6">
-            <div class="client-logo">
-              <img src="img/clients/client-1.png" class="img-fluid" alt="">
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-md-4 col-xs-6">
-            <div class="client-logo">
-              <img src="img/clients/client-2.png" class="img-fluid" alt="">
-            </div>
-          </div>
-        
-          <div class="col-lg-3 col-md-4 col-xs-6">
-            <div class="client-logo">
-              <img src="img/clients/client-3.png" class="img-fluid" alt="">
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-md-4 col-xs-6">
-            <div class="client-logo">
-              <img src="img/clients/client-4.png" class="img-fluid" alt="">
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-md-4 col-xs-6">
-            <div class="client-logo">
-              <img src="img/clients/client-5.png" class="img-fluid" alt="">
-            </div>
-          </div>
-        
-          <div class="col-lg-3 col-md-4 col-xs-6">
-            <div class="client-logo">
-              <img src="img/clients/client-6.png" class="img-fluid" alt="">
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-md-4 col-xs-6">
-            <div class="client-logo">
-              <img src="img/clients/client-7.png" class="img-fluid" alt="">
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-md-4 col-xs-6">
-            <div class="client-logo">
-              <img src="img/clients/client-8.png" class="img-fluid" alt="">
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section> -->
+    <!--
+          Demo minh hoạ VUEJS - Transitions
+    -->
     <section id="about">
-      <div class="container" id="v-bind">
+      <div class="container" id="transitions">
 
         <header class="section-header">
           <h3 style="color:#018849">Enter/Leave & List Transitions</h3>
@@ -1622,8 +1153,10 @@ new Vue({
                   Các nút gốc thành phần components
                 </li>
               </ol>
-              <p>Ví dụ minh họa</p>
-              <div id="transition-app1">
+
+              <!-- Ví dụ 2 -->
+              <p>Ví dụ 25:</p>
+              <div id="vd25_Transitions_Transition">
                 <button v-on:click="show = !show" class="btn btn-primary">
                   Toggle
                 </button>
@@ -1641,8 +1174,6 @@ new Vue({
             </div>
 
           </div>
-
-
 
 
         </div>
@@ -1696,7 +1227,9 @@ new Vue({
                   <tbody>
                     <tr>
                       <td>
-                        <div id="example-1">
+
+                        <!-- Ví dụ 26: CSS-Transition-->
+                        <div id="vd26_Transitions_CSSTransition">
                           <button @click="show = !show" class="btn btn-primary">
                             Kích hoạt
                           </button>
@@ -1711,7 +1244,9 @@ new Vue({
 
                       </td>
                       <td>
-                        <div id="example-2">
+
+                        <!-- Ví dụ 27: CSS-Animation -->
+                        <div id="vd27_Transitions_CSSAnimation">
                           <button @click="show = !show" class="btn btn-primary">Kích hoạt</button>
                           <transition name="bounce">
                             <p v-if="show">Cân đẩu vân</p>
@@ -1835,7 +1370,8 @@ new Vue({
               <p style="color:#018849; font-size:30px;">Ví dụ
                 <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 
-              <div id="example-3">
+              <!-- Ví dụ 28:  SỬ DỤNG CLASS TÙY BIẾN -->
+              <div id="vd28_Transitions_ClassTuyBien">
                 <button @click="show = !show" class="btn btn-primary">
                   Kích hoạt
                 </button>
@@ -1852,6 +1388,9 @@ new Vue({
 
     </section><!-- #about -->
 
+    <!-- 
+      Demo về VueJS: Component nâng cao
+     -->
     <section id="services" class="section-bg2">
       <div class="container" id="componentadvanced">
 
@@ -1952,16 +1491,14 @@ new Vue({
           </div>
 
         </div>
-
-
    
-        <!-- Render function -->
         <div class="row">
 
-          <div id="app-render-function-1" class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+          <!-- Ví dụ 29. Hiển thị tiêu đề có kích thước khác nhau với một component -->
+          <div id="vd29_ComponentAdvance_RenderFunction" class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
             <div class="box">
               <div class="icon"><i class="ion-ios-analytics-outline" style="color: #0c4900;"></i></div>
-              <h4 class="title"><a href="">Ví dụ 12. Hiển thị tiêu đề có kích thước khác nhau với một component </a> </h4>
+              <h4 class="title"><a href="">Ví dụ 29. Hiển thị tiêu đề có kích thước khác nhau với một component </a> </h4>
               <div class="description">
                 <script type="text/x-template" id="variable-heading-template">
                   <h1 v-if="size === 1">
@@ -2042,7 +1579,9 @@ new Vue({
                 <p>
                   Ta có thể tạo ra một virtual DOM bằng <code>createElement</code>
                 </p>
-                <div id="app-virtual-dom">
+
+                <!-- Ví dụ 30: Virtual DOM -->
+                <div id="vd30_ComponentAdvance_VirtualDOM">
                   <virtual-dom-example></virtual-dom-example>
                   <div align='right'>
                     <button class="btn btn-default btn-image" @click="openModal()"
@@ -2124,7 +1663,9 @@ vm.b = 2
                 <p>
                   Để có thể thực hiện điều đó <code>Vue.set</code> và <code>Vue.delete</code> để thêm, sửa đổi hoặc xoá.
                 </p>
-                <div id="app-reactive-interface">
+
+                <!-- Ví dụ 31: Reactive Interface -->
+                <div id="vd31_ComponentAdvance_ReactiveInterface">
                   <div class="form-group col-lg-6 form-check-inline">
                     <input class="form-control" v-model="newStudent" v-on:keyup.enter="addNewTodo"
                       placeholder="Thêm nhân viên">
@@ -2219,6 +1760,7 @@ vm.b = 2
     </section><!-- #contact -->
 
   </main>
+
   <!-- Begin custom modal -->
   <div class="component" id="modal-cus">
     <modal v-if="showModal" @close="closeModal()">
